@@ -1,0 +1,20 @@
+<list>
+    <webservice>    
+        <tpAmbiente>2</tpAmbiente>
+        <urlRecepcao>https://mdfe-hml.sefaz.rs.gov.br/ws/MDFerecepcao/MDFeRecepcao.asmx?WSDL</urlRecepcao>
+        <urlRetRecepcao>https://mdfe-hml.sefaz.rs.gov.br/ws/MDFeRetRecepcao/MDFeRetRecepcao.asmx?WSDL</urlRetRecepcao>
+         <urlStatusServico>https://mdfe-hml.sefaz.rs.gov.br/ws/MDFeStatusServico/MDFeStatusServico.asmx?WSDL</urlStatusServico>
+        <urlRecepcaoEvento>https://mdfe-hml.sefaz.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx?WSDL</urlRecepcaoEvento>
+        <urlConsultaMdfe>https://mdfe-hml.sefaz.rs.gov.br/ws/MDFeConsulta/MDFeConsulta.asmx?WSDL</urlConsultaMdfe>
+        <versaoPadrao>1.00</versaoPadrao>
+    </webservice>
+    <webservice>
+        <tpAmbiente>1</tpAmbiente>
+        <urlRecepcao>https://mdfe.sefaz.rs.gov.br/ws/MDFerecepcao/MDFeRecepcao.asmx?WSDL</urlRecepcao>
+        <urlRetRecepcao>https://mdfe.sefaz.rs.gov.br/ws/MDFeRetRecepcao/MDFeRetRecepcao.asmx?WSDL</urlRetRecepcao>
+        <urlStatusServico>https://mdfe.sefaz.rs.gov.br/ws/MDFeStatusServico/MDFeStatusServico.asmx?WSDL</urlStatusServico>
+        <urlConsultaMdfe>https://mdfe.sefaz.rs.gov.br/ws/MDFeConsulta/MDFeConsulta.asmx?WSDL</urlConsultaMdfe>
+        <urlRecepcaoEvento>https://mdfe.sefaz.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx?WSDL</urlRecepcaoEvento>
+        <versaoPadrao>1.00</versaoPadrao>
+    </webservice>
+</list>
