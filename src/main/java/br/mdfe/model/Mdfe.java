@@ -39,7 +39,7 @@ public class Mdfe {
     private MdfeAereo aereo;
     
     //novo 3.0
-    private MdfeSeg seg;
+    private ArrayList<MdfeSeg> seg;
     
     private Integer qCTe;
     private Integer qCT;
@@ -422,11 +422,11 @@ public class Mdfe {
 		this.tpTransp = tpTransp;
 	}
 
-	public MdfeSeg getSeg() {
+	public ArrayList<MdfeSeg> getSeg() {
 		return seg;
 	}
 
-	public void setSeg(MdfeSeg seg) {
+	public void setSeg(ArrayList<MdfeSeg> seg) {
 		this.seg = seg;
 	}
 

@@ -15,6 +15,7 @@ import br.utils.Formatador;
 import br.utils.Utils;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -27,8 +28,19 @@ public class XmlEventoMdfe {
     private MdfeEvento evento;
     private final SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
     private final SimpleDateFormat formatador2 = new SimpleDateFormat("HH:mm:ss");
-
+    
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ") {
+        public StringBuffer format(Date date, StringBuffer toAppendTo, java.text.FieldPosition pos) {
+            StringBuffer toFix = super.format(date, toAppendTo, pos);
+            return toFix.insert(toFix.length()-2, ':');
+        };
+    };
+    
     public String geraXmlDistEvento(MdfeEvento evento, Empresa empresa) {
+    	return this.geraXmlDistEvento(evento, empresa, "3.00");
+    }
+
+    public String geraXmlDistEvento(MdfeEvento evento, Empresa empresa, String versao) {
         //String nomeArquivoLote = Configuracoes.getInstance().getTmpDir() + System.getProperty("file.separator") + evento.getTpEvento() + "-" + "" + evento.getChMDFe() + "-" + evento.getNSeqEvento() + "-procEventoMDFe.xml";
         String nomeArquivoLote = Configuracoes.getInstance().getDistDir(evento.getCNPJ(),"58", evento.getDhEvento()) + evento.getChMDFe()  +"-"+evento.getTpEvento()+ "-" + evento.getNSeqEvento()+ "-procEventoMDFe.xml";        
         File f = new File(nomeArquivoLote);
@@ -39,7 +51,7 @@ public class XmlEventoMdfe {
 
             Arquivo a = new Arquivo(nomeArquivoNota);
             a.abrirEscrita();
-            String xml = this.getXml(evento, empresa);
+            String xml = this.getXml(evento, empresa, versao);
             a.escreverLinha(xml);
             a.fecharArquivo();
 
@@ -47,11 +59,11 @@ public class XmlEventoMdfe {
                 return "ERro ao assina: " + CertDig.getInstance().getErro();
             } else {
                 String dados = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-                dados += "<procEventoMDFe xmlns=\"http://www.portalfiscal.inf.br/mdfe\" versao=\"1.00\">";
+                dados += "<procEventoMDFe xmlns=\"http://www.portalfiscal.inf.br/mdfe\" versao=\"" + versao + "\">";
                 Arquivo aAssinado = new Arquivo(nomeArquivoNotaAss);
                 if (aAssinado.abrirLeitura()) {
                     dados += aAssinado.ler();
-                    dados += "<retEventoMDFe versao=\"1.00\">"
+                    dados += "<retEventoMDFe versao=\"" + versao + "\">"
                             + "<infEvento>"
                             + "<tpAmb>" + evento.getTpAmb() + "</tpAmb>"
                             + "<verAplic>" + evento.getVerAplic() + "</verAplic>"
@@ -62,15 +74,14 @@ public class XmlEventoMdfe {
                             + "<tpEvento>" + evento.getTpEvento() + "</tpEvento>"
                             + "<xEvento>" + evento.getXEvento() + "</xEvento>"
                             + "<nSeqEvento>" + evento.getNSeqEvento() + "</nSeqEvento>"
-                            + "<dhRegEvento>" + formatador.format(evento.getDhEvento()) + "T"
-                            + formatador2.format(evento.getDhEvento());
+                            + "<dhRegEvento>" + dateFormat.format(evento.getDhEvento());
                     dados += "</dhRegEvento>"
                             + "<nProt>" + evento.getNProtRegEvento() + "</nProt>"
                             + "</infEvento>"
                             + "</retEventoMDFe>"
                             + "</procEventoMDFe>";
 
-                    xml += getXml(evento, empresa);
+                    xml += getXml(evento, empresa, versao);
                     Arquivo a1 = new Arquivo(nomeArquivoLote);
                     a1.abrirEscrita();
                     a1.escreverLinha(dados);
@@ -86,21 +97,20 @@ public class XmlEventoMdfe {
         }
     }
 
-    public String getXml(MdfeEvento evento, Empresa empresa) {
+    public String getXml(MdfeEvento evento, Empresa empresa, String versao) {
         this.evento = evento;
         criaId();
-        String xml = "<eventoMDFe xmlns=\"http://www.portalfiscal.inf.br/mdfe\" versao=\"1.00\">"
+        String xml = "<eventoMDFe xmlns=\"http://www.portalfiscal.inf.br/mdfe\" versao=\"" + versao + "\">"
                 + "<infEvento Id=\"" + id + "\">"
                 + "<cOrgao>" + evento.getCOrgao() + "</cOrgao>"
                 + "<tpAmb>" + evento.getTpAmb() + "</tpAmb>"
                 + "<CNPJ>" + evento.getCNPJ() + "</CNPJ>"
                 + "<chMDFe>" + evento.getChMDFe() + "</chMDFe>"
-                + "<dhEvento>" + formatador.format(evento.getDhEvento()) + "T"
-                + formatador2.format(evento.getDhEvento());
+                + "<dhEvento>" + dateFormat.format(evento.getDhEvento());
         xml += "</dhEvento>"
                 + "<tpEvento>" + evento.getTpEvento() + "</tpEvento>"
                 + "<nSeqEvento>" + evento.getNSeqEvento() + "</nSeqEvento>"
-                + "<detEvento versaoEvento=\"1.00\">";
+                + "<detEvento versaoEvento=\"" + versao + "\">";
 
         //CANCELAMENTO
         if (evento.getTpEvento() == 110111) {

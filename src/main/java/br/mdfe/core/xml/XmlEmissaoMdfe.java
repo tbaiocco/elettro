@@ -8,6 +8,8 @@ import br.mdfe.core.CertDig;
 import br.mdfe.model.Mdfe;
 import br.mdfe.model.MdfeAutXML;
 import br.mdfe.model.MdfeCondutor;
+import br.mdfe.model.MdfeInfANTT;
+import br.mdfe.model.MdfeInfCIOT;
 import br.mdfe.model.MdfeInfCT;
 import br.mdfe.model.MdfeInfCTe;
 import br.mdfe.model.MdfeInfMunCarrega;
@@ -18,7 +20,9 @@ import br.mdfe.model.MdfeInfPercurso;
 import br.mdfe.model.MdfeInfUnidCarga;
 import br.mdfe.model.MdfeInfUnidTransp;
 import br.mdfe.model.MdfeLacUnidCarga;
+import br.mdfe.model.MdfePeri;
 import br.mdfe.model.MdfeRodo;
+import br.mdfe.model.MdfeSeg;
 import br.mdfe.model.MdfeValePed;
 import br.mdfe.model.MdfeVeicReboque;
 import br.utils.Arquivo;
@@ -40,6 +44,13 @@ public class XmlEmissaoMdfe {
     private final static XmlEmissaoMdfe instancia = new XmlEmissaoMdfe();
     private final SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
 
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ") {
+        public StringBuffer format(Date date, StringBuffer toAppendTo, java.text.FieldPosition pos) {
+            StringBuffer toFix = super.format(date, toAppendTo, pos);
+            return toFix.insert(toFix.length()-2, ':');
+        };
+    };
+    
     private XmlEmissaoMdfe() {
     }
 
@@ -76,9 +87,9 @@ public class XmlEmissaoMdfe {
             dadosMsgXml += "<verAplic>" + mdfe.getVerAplic() + "</verAplic>";
             dadosMsgXml += "<chMDFe>" + mdfe.getChAcesso() + "</chMDFe>";
             if (mdfe.getDhRecbto() != null) {
-                SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                fDate.setLenient(false);
-                String dt = fDate.format(mdfe.getDhRecbto());
+//                SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+//                fDate.setLenient(false);
+                String dt = dateFormat.format(mdfe.getDhRecbto());
                 //dt = dt.substring(0, dt.length() - 2) + ":00";
                 dadosMsgXml += "<dhRecbto>" + dt + "</dhRecbto>";
             }
@@ -114,8 +125,12 @@ public class XmlEmissaoMdfe {
                 + "<ide>"
                 + "<cUF>" + Utils.getInstance().zeroFill(uf, 2) + "</cUF>";
         saida += "<tpAmb>" + mdfe.getTpAmb() + "</tpAmb>";
-        saida += "<tpEmit>" + mdfe.getTpEmit() + "</tpEmit>"
-                + "<mod>" + Utils.getInstance().zeroFill(mdfe.getMod() + "", 2) + "</mod>";
+        saida += "<tpEmit>" + mdfe.getTpEmit() + "</tpEmit>";
+        
+        if(mdfe.getTpTransp() != null && mdfe.getTpTransp() > 0)
+        	saida += "<tpTransp>" + mdfe.getTpTransp() + "</tpTransp>";
+        
+        saida += "<mod>" + Utils.getInstance().zeroFill(mdfe.getMod() + "", 2) + "</mod>";
 
         saida += "<serie>" + mdfe.getSerie() + "</serie>"
                 + "<nMDF>" + mdfe.getNMDF() + "</nMDF>"
@@ -124,9 +139,9 @@ public class XmlEmissaoMdfe {
 
         saida += "<modal>" + mdfe.getModal() + "</modal>";
 
-        SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        fDate.setLenient(false);
-        String dt = fDate.format(mdfe.getDhEmi());
+//        SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+//        fDate.setLenient(false);
+        String dt = dateFormat.format(mdfe.getDhEmi());
         //dt = dt.substring(0, dt.length() - 2) + ":00";
         saida += "<dhEmi>" + dt + "</dhEmi>";
 
@@ -181,14 +196,63 @@ public class XmlEmissaoMdfe {
 
         if (mdfe.getRodo() != null) {
             MdfeRodo rodo = mdfe.getRodo();
-            saida += "<infModal versaoModal=\"1.00\">"
-                    + "<rodo xmlns=\"http://www.portalfiscal.inf.br/mdfe\">";
-            if (rodo.getRNTRC() != null && rodo.getRNTRC().length() > 0) {
-                saida += "<RNTRC>" + rodo.getRNTRC() + "</RNTRC>";
+            if(Utils.doValida(mdfe.getVersaoModal())) {
+            	saida += "<infModal versaoModal=\"" + mdfe.getVersaoModal() + "\">"
+                        + "<rodo xmlns=\"http://www.portalfiscal.inf.br/mdfe\">";
+            } else {
+            	saida += "<infModal versaoModal=\"3.00\">"
+                        + "<rodo xmlns=\"http://www.portalfiscal.inf.br/mdfe\">";
             }
-            if (rodo.getCIOT() != null && rodo.getCIOT().length() > 0) {
-                saida += "<CIOT>" + rodo.getCIOT() + "</CIOT>";
+            
+            if(rodo.getInfANTT() != null) {
+            	MdfeInfANTT infANTT = rodo.getInfANTT();
+            	saida += "<infANTT>";
+            	if (infANTT.getRNTRC() != null && infANTT.getRNTRC().length() > 0) {
+                    saida += "<RNTRC>" + infANTT.getRNTRC() + "</RNTRC>";
+                }
+            	if(infANTT.getInfCIOT() != null) {
+            		for(MdfeInfCIOT infCIOT : infANTT.getInfCIOT()) {
+                		saida += "<infCIOT>";
+                		saida += "<CIOT>" + infCIOT.getCIOT() + "</CIOT>";
+                		if(Utils.doValida(infCIOT.getCPF())) {
+                			saida += "<CPF>" + infCIOT.getCPF() + "</CPF>";
+                		} else {
+                			saida += "<CNPJ>" + infCIOT.getCNPJ() + "</CNPJ>";
+                		}
+                		saida += "</infCIOT>";
+                	}
+            	}
+            	
+            	if (infANTT.getValePed() != null && !infANTT.getValePed().isEmpty()) {
+                    saida += "<valePed>";
+                    for(MdfeValePed valePed : infANTT.getValePed()) {
+                    	saida += "<disp>";
+                        saida += "<CNPJForn>" + valePed.getCNPJForn() + "</CNPJForn>";
+                        if(Utils.doValida(valePed.getCPFPg())) {
+                            saida += "<CPFPg>" + valePed.getCPFPg() + "</CPFPg>";
+                        } else {
+                        	saida += "<CNPJPg>" + valePed.getCNPJPg() + "</CNPJPg>";
+                        }
+                        saida += "<nCompra>" + valePed.getNCompra() + "</nCompra>";
+                        saida += "<vValePed>" + valePed.getvValePed() + "</vValePed>";
+                        saida += "</disp>";
+                    }
+                    saida += "</valePed>";
+                }
+            	
+            	if(Utils.doValida(infANTT.getCNPJ()) ||Utils.doValida(infANTT.getCPF())) {
+            		saida += "<infContratante>";
+            		if(Utils.doValida(infANTT.getCNPJ())) {
+            			saida += "<CNPJ>" + infANTT.getCNPJ() + "</CNPJ>";
+            		} else {
+            			saida += "<CPF>" + infANTT.getCPF() + "</CPF>";
+            		}
+            		saida += "</infContratante>";
+            	}
+            	
+            	saida += "</infANTT>";
             }
+            
             saida += "<veicTracao>";
             if (rodo.getVeicTracao().getCInt() != null) {
                 saida += "<cInt>" + rodo.getVeicTracao().getCInt() + "</cInt>";
@@ -272,25 +336,21 @@ public class XmlEmissaoMdfe {
                     saida += "</veicReboque>";
                 }
             }
-            if (rodo.getValePed() != null) {
-                saida += "<valePed>";
-                for (MdfeValePed v : rodo.getValePed()) {
-                    saida += "<disp>";
-                    saida += "<CNPJForn>" + v.getCNPJForn() + "</CNPJForn>";
-                    if (v.getCNPJPg() != null) {
-                        saida += "<CNPJPg>" + v.getCNPJPg() + "</CNPJPg>";
-                    }
-                    saida += "<nCompra>" + v.getNCompra() + "</nCompra>";
-                    saida += "</disp>";
-                }
-                saida += "</valePed>";
-                
-               
+            if(Utils.doValida(rodo.getCodAgPorto())) {
+                saida += "<codAgPorto>" + rodo.getCodAgPorto() + "</codAgPorto>";
             }
+            if (rodo.getnLacre() != null) {
+                for (String l : rodo.getnLacre()) {
+                    saida += "<lacRodo>";
+                    saida += "<nLacre>" + l + "</nLacre>";
+                    saida += "</lacRodo>";
+                }
+            }
+            
             saida += "</rodo></infModal>";
         }
         if (mdfe.getAereo() != null) {
-            saida += "<infModal versaoModal=\"1.00\">";
+            saida += "<infModal versaoModal=\"3.00\">";
             saida += "<nac>" + mdfe.getAereo().getNac() + "</nac>";
             saida += "<nVoo>" + mdfe.getAereo().getNVoo() + "</nVoo>";
             saida += "<cAerEmb>" + mdfe.getAereo().getCAerEmb() + "</cAerEmb>";
@@ -312,6 +372,9 @@ public class XmlEmissaoMdfe {
                         saida += "<chCTe>" + c.getChCTe() + "</chCTe>";
                         if (c.getSegCodBarra() != null && c.getSegCodBarra().length() > 0) {
                             saida += "<SegCodBarra>" + c.getSegCodBarra() + "</SegCodBarra>";
+                        }
+                        if (c.getIndReentrega() != null && c.getIndReentrega() > 0) {
+                            saida += "<indReentrega>" + c.getIndReentrega() + "</indReentrega>";
                         }
                         if (c.getInfUnidTransp() != null) {
                             for (MdfeInfUnidTransp t : c.getInfUnidTransp()) {
@@ -349,6 +412,14 @@ public class XmlEmissaoMdfe {
                                 saida += "</infUnidTransp>";
                             }
                         }
+                        
+                        //nao implementado ainda
+                        if(c.getPeri() != null) {
+                        	for(MdfePeri peri : c.getPeri()) {
+                        
+                        	}
+                        }
+                        
                         saida += "</infCTe>";
                     }
                 }
@@ -363,7 +434,8 @@ public class XmlEmissaoMdfe {
                             saida += "<subser>" + c.getSubser() + "</subser>";
                         }
                         if (c.getdEmi() != null) {
-                            saida += "<dEmi>" + formatador.format(c.getdEmi()) + "</dEmi>";
+                        	
+                            saida += "<dEmi>" + dateFormat.format(c.getdEmi()) + "</dEmi>";
                         }
                         saida += "<vCarga>" + Utils.getInstance().getDecimalFormatter(15, 2).format(c.getVCarga()) + "</vCarga>";
                         if (c.getInfUnidTransp() != null) {
@@ -414,6 +486,9 @@ public class XmlEmissaoMdfe {
                         if (c.getSegCodBarra() != null && c.getSegCodBarra().length() > 0) {
                             saida += "<SegCodBarra>" + c.getSegCodBarra() + "</SegCodBarra>";
                         }
+                        if (c.getIndReentrega() != null && c.getIndReentrega() > 0) {
+                            saida += "<indReentrega>" + c.getIndReentrega() + "</indReentrega>";
+                        }
                         if (c.getInfUnidTransp() != null) {
                             for (MdfeInfUnidTransp t : c.getInfUnidTransp()) {
                                 saida += "<infUnidTransp>";
@@ -463,7 +538,7 @@ public class XmlEmissaoMdfe {
                         saida += "<nNF>" + c.getNNF() + "</nNF>";
                         saida += "<serie>" + c.getSerie() + "</serie>";
                         if (c.getdEmi() != null) {
-                            saida += "<dEmi>" + formatador.format(c.getdEmi()) + "</dEmi>";
+                            saida += "<dEmi>" + dateFormat.format(c.getdEmi()) + "</dEmi>";
                         }
                         saida += "<vNF>" + Utils.getInstance().getDecimalFormatter(15, 2).format(c.getVNF()) + "</vNF>";
                         if (c.getPIN() != null && c.getPIN().length() > 0) {
@@ -513,6 +588,37 @@ public class XmlEmissaoMdfe {
         }
 
         saida += "</infDoc>";
+        
+        if(mdfe.getSeg() != null) {
+        	for(MdfeSeg seg : mdfe.getSeg()) {
+            	saida += "<seg>";
+            	if(seg.getRespSeg() != null && seg.getRespSeg() > 0){
+            		saida += "<infResp>";
+            		saida += "<respSeg>" + seg.getRespSeg() + "</respSeg>";
+            		if(Utils.doValida(seg.getCPF())) {
+            			saida += "<CPF>" + seg.getCPF() + "</CPF>";
+            		} else {
+            			saida += "<CNPJ>" + seg.getCNPJ() + "</CNPJ>";
+            		}
+            		saida += "</infResp>";
+            	}
+            	if(Utils.doValida(seg.getxSeg())){
+            		saida += "<infSeg>";
+            		saida += "<xSeg>" + seg.getxSeg() + "</xSeg>";
+            		saida += "<CNPJ>" + seg.getCnpjSeg() + "</CNPJ>";
+            		saida += "</infSeg>";
+            	}
+            	
+            	if(Utils.doValida(seg.getnApol())) {
+            		saida += "<nApol>" + seg.getnApol() + "</nApol>";
+            	}
+            	if(Utils.doValida(seg.getnAver())) {
+            		saida += "<nAver>" + seg.getnAver() + "</nAver>";
+            	}
+            	saida += "</seg>";
+            }
+        }
+        
         saida += "<tot>";
         if (mdfe.getQCTe() != null && mdfe.getQCTe() > 0) {
             saida += "<qCTe>" + mdfe.getQCTe() + "</qCTe>";

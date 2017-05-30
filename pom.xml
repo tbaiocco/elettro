@@ -4,10 +4,10 @@
 	<groupId>com.nuovonet</groupId>
 	<artifactId>elettro</artifactId>
 	<version>0.0.3-SNAPSHOT</version>
-	
+
 	<properties>
 		<!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
-		<java.version>1.5</java.version>
+		<java.version>1.6</java.version>
 	</properties>
 
 	<dependencies>
@@ -60,10 +60,17 @@
 			<version>2.0.0</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.sun.xml.security/xml-security-impl -->
+		<dependency>
+			<groupId>com.sun.xml.security</groupId>
+			<artifactId>xml-security-impl</artifactId>
+			<version>1.0</version>
+		</dependency>
+
 	</dependencies>
-	
+
 	<build>
-		<finalName>elettro</finalName>
+		<!-- <finalName>elettro</finalName> -->
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -71,5 +78,5 @@
 			</resource>
 		</resources>
 	</build>
-	
+
 </project>

@@ -18,7 +18,7 @@ public class MdfeInfCTe {
     private ArrayList<MdfeInfUnidTransp> infUnidTransp;
     //novo 3.0
     private Integer indReentrega;
-    private MdfePeri peri;
+    private ArrayList<MdfePeri> peri;
 
     public String getChCTe() {
         return chCTe;
@@ -52,11 +52,11 @@ public class MdfeInfCTe {
 		this.indReentrega = indReentrega;
 	}
 
-	public MdfePeri getPeri() {
+	public ArrayList<MdfePeri> getPeri() {
 		return peri;
 	}
 
-	public void setPeri(MdfePeri peri) {
+	public void setPeri(ArrayList<MdfePeri> peri) {
 		this.peri = peri;
 	}
 

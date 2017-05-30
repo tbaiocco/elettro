@@ -9,6 +9,8 @@ import br.mdfe.model.Mdfe;
 import br.mdfe.model.MdfeAutXML;
 import br.mdfe.model.MdfeCondutor;
 import br.mdfe.model.MdfeEmit;
+import br.mdfe.model.MdfeInfANTT;
+import br.mdfe.model.MdfeInfCIOT;
 import br.mdfe.model.MdfeInfMunCarrega;
 import br.mdfe.model.MdfeInfMunDescarga;
 import br.mdfe.model.MdfeInfNFe;
@@ -109,19 +111,31 @@ public class MdfeTeste {
         lReb.add(reboque);
         rodo.setVeicReboque(lReb);
 
+        MdfeInfANTT infANTT = new MdfeInfANTT();
+        infANTT.setRNTRC("12342443");
+        MdfeInfCIOT infCIOT = new MdfeInfCIOT();
+        infCIOT.setCIOT("123456789012");
+        infCIOT.setCNPJ("91665554000163");
+        
         ArrayList<MdfeValePed> lVped = new ArrayList<MdfeValePed>();
         MdfeValePed vped = new MdfeValePed();
         vped.setCNPJForn("91665554000163");
         vped.setCNPJPg("91665554000163");
         vped.setNCompra("123423434");
-        lVped.add(vped);
+        vped.setvValePed(352.98d);
+        infANTT.getValePed().add(vped);
 
         vped = new MdfeValePed();
         vped.setCNPJForn("08593038000127");
-        vped.setCNPJPg("08593038000127");
+        vped.setCPFPg("00492343900");
         vped.setNCompra("123423435");
+        vped.setvValePed(35.0d);
         lVped.add(vped);
-        rodo.setValePed(lVped);
+        infANTT.getValePed().add(vped);
+        
+        infANTT.setCNPJ("91665554000163");
+        
+        rodo.setInfANTT(infANTT);
 
         /**
          * INFORMACAO DE DOCUMENTOS
@@ -220,6 +234,9 @@ public class MdfeTeste {
 
         mdfe.setAutXML(lAutXml);
         mdfe.setEmit(emitente);
+        
+        mdfe.setVersao("3.00");
+        
         return mdfe;
     }
 }

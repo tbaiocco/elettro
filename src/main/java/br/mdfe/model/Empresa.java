@@ -21,6 +21,15 @@ public class Empresa {
     private String mun;
     private String versao;
     private int tipoCertificado;
+    
+    private String dbHost;
+    private int dbPort;
+    private String dbURL;
+    private String dbUser;
+    private String dbDriver;
+    private String dbPass;
+    
+    private String ambiente;
 
     public String getCertificado() {
         return certificado;
@@ -109,5 +118,61 @@ public class Empresa {
     public void setTipoCertificado(int tipoCertificado) {
         this.tipoCertificado = tipoCertificado;
     }
+
+	public String getDbHost() {
+		return dbHost;
+	}
+
+	public void setDbHost(String dbHost) {
+		this.dbHost = dbHost;
+	}
+
+	public int getDbPort() {
+		return dbPort;
+	}
+
+	public void setDbPort(int dbPort) {
+		this.dbPort = dbPort;
+	}
+
+	public String getDbURL() {
+		return dbURL;
+	}
+
+	public void setDbURL(String dbURL) {
+		this.dbURL = dbURL;
+	}
+
+	public String getDbUser() {
+		return dbUser;
+	}
+
+	public void setDbUser(String dbUser) {
+		this.dbUser = dbUser;
+	}
+
+	public String getDbDriver() {
+		return dbDriver;
+	}
+
+	public void setDbDriver(String dbDriver) {
+		this.dbDriver = dbDriver;
+	}
+
+	public String getDbPass() {
+		return dbPass;
+	}
+
+	public void setDbPass(String dbPass) {
+		this.dbPass = dbPass;
+	}
+
+	public String getAmbiente() {
+		return ambiente;
+	}
+
+	public void setAmbiente(String ambiente) {
+		this.ambiente = ambiente;
+	}
     
 }

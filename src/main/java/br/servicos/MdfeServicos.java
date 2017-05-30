@@ -31,6 +31,8 @@ public class MdfeServicos {
     private HashMap erros = new HashMap();
 
     public MdfeLote enviaMdfe(Mdfe cte) {
+    	
+    	System.out.println("Versão via Elettro!!!");
         this.erros = new HashMap();
         EnvioLoteMdfe envio = new EnvioLoteMdfe(cte);
         MdfeLote retorno = envio.executar();

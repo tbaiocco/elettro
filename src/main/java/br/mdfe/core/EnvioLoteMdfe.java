@@ -48,7 +48,7 @@ public class EnvioLoteMdfe {
         this.cnpjEmissor = mdfe.getEmit().getCNPJ();
         this.tpAmbiente = mdfe.getTpAmb();
         if(mdfe.getVersao()==null){
-            mdfe.setVersao("1.00");
+            mdfe.setVersao("3.00");
         }
         this.mdfe = mdfe;
     }

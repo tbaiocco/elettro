@@ -43,7 +43,7 @@ public class ValidadorXmlEventoMdfe implements ErrorHandler {
     public Boolean valida(String xml, int tipo, String versao) {
             valido = true;
             this.xmlInput = xml;
-            this.xsdInput = Configuracoes.getInstance().getAppDir() + "schemasMdfe"+System.getProperty("file.separator")+"eventoMDFe_v1.00.xsd";
+            this.xsdInput = Configuracoes.getInstance().getAppDir() + "schemasMdfe"+System.getProperty("file.separator")+"eventoMDFe_v"+versao+".xsd";
             try {
                 this.validate();
                 return valido;
@@ -92,6 +92,9 @@ public class ValidadorXmlEventoMdfe implements ErrorHandler {
 
             // Cria um SchemaFactory capaz de compreender WXS schemas.
             SchemaFactory schemaFactory = SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            
+            //limite de 10000 ocorrencias
+            schemaFactory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING,false);
 
             // carrega um WXS schema, representada por uma instacia Schema.
             Source schemaFile = new StreamSource(new File(xsdInput));

@@ -204,7 +204,7 @@ public class AssinadorA3 {
 
         // Create a DOM XMLSignatureFactory that will be used to
         // generate the enveloped signature.
-        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM", new org.apache.jcp.xml.dsig.internal.dom.XMLDSigRI());
+        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM", new org.jcp.xml.dsig.internal.dom.XMLDSigRI());
 
         // Create a Reference to the enveloped document (in this case,
         // you are signing the whole document, so a URI of "" signifies

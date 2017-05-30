@@ -33,6 +33,8 @@ public class RecepcaoEventoMdfe {
     private Empresa empresa = null;
     private HashMap erros = new HashMap();
     private WebService webservice = null;
+    
+    private final String versao = "3.00";
     //
     private final MdfeEvento evento;
 
@@ -73,15 +75,15 @@ public class RecepcaoEventoMdfe {
         br.utils.Arquivo a = new br.utils.Arquivo(nomeArquivoNota);
         if (a.abrirEscrita()) {
 
-            String xml = XmlEventoMdfe.getInstance().getXml(evento, empresa);
-            System.out.println(xml);
+            String xml = XmlEventoMdfe.getInstance().getXml(evento, empresa, versao);
+//            System.out.println(xml);
             a.escreverLinha(xml);
             a.fecharArquivo();
 
             ValidadorXmlEventoMdfe validador = new ValidadorXmlEventoMdfe();
             if (!CertDig.getInstance().Ass(nomeArquivoNota, nomeArquivoNotaAss, "4", empresa)) {
                 erros.put("AssinarXmlEvento", CertDig.getInstance().getErro());
-            } else if (!validador.valida(nomeArquivoNotaAss, 1, webservice.getVersaoPadrao())) {
+            } else if (!validador.valida(nomeArquivoNotaAss, 1, versao)) {
                 System.out.println("retorno de erro na validacao do xml eventos");
                 erros = validador.getErros();
                 retorno = null;
@@ -92,7 +94,7 @@ public class RecepcaoEventoMdfe {
                 Arquivo aAssinado = new Arquivo(nomeArquivoNotaAss);
                 if (aAssinado.abrirLeitura()) {
                     cteDadosMsg += aAssinado.ler();
-
+                    System.out.println(cteDadosMsg);
 //                    cteDadosMsg += xml2;                                        
                     MDFeRecepcaoEventoStub murl = null;
                     try {
@@ -107,7 +109,8 @@ public class RecepcaoEventoMdfe {
                     MDFeRecepcaoEventoStub.MdfeCabecMsg param = new MDFeRecepcaoEventoStub.MdfeCabecMsg();
 
                     param.setCUF("" + empresa.getcUf());
-                    param.setVersaoDados("1.00");
+//                    param.setVersaoDados("1.00");
+                    param.setVersaoDados(versao);
                     cabecMsg1.setMdfeCabecMsg(param);
 
                     OMElement ome = null;

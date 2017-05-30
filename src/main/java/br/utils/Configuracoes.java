@@ -6,9 +6,12 @@ package br.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+
+import org.apache.commons.io.IOUtils;
 
 /**
  *
@@ -25,9 +28,14 @@ public class Configuracoes {
     private Configuracoes() {
         props = new Properties();
         try {
-            System.out.println("Reading... " + System.getProperty("user.dir") + "" + System.getProperty("file.separator") + "sistema.properties");
-            String x = System.getProperty("user.dir") + "" + System.getProperty("file.separator") + "sistema.properties";
-            //String x = "sistema.properties";
+        	System.out.println("Buscando elettro: elettro.properties");
+        	InputStream is = getClass().getClassLoader().getResourceAsStream("elettro.properties");
+        	Properties baseProps = new Properties();
+        	baseProps.load(is);
+//            System.out.println("Reading... " + System.getProperty("user.dir") + "" + System.getProperty("file.separator") + "sistema.properties");
+//            String x = System.getProperty("user.dir") + "" + System.getProperty("file.separator") + "sistema.properties";
+            String x = baseProps.getProperty("props.location");
+            System.out.println("Reading... " + x);
             props.load(new FileInputStream(x));
             System.out.println("Application Home..:" + props.getProperty("appDir"));
         } catch (Exception e) {

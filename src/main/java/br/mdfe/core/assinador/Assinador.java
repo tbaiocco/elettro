@@ -4,12 +4,17 @@
  */
 package br.mdfe.core.assinador;
 
-import br.utils.Arquivo;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.security.KeyStore;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.xml.crypto.dsig.CanonicalizationMethod;
@@ -29,6 +34,7 @@ import javax.xml.crypto.dsig.spec.C14NMethodParameterSpec;
 import javax.xml.crypto.dsig.spec.TransformParameterSpec;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -36,12 +42,10 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.util.Enumeration;
-import javax.xml.transform.OutputKeys;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
+import br.utils.Arquivo;
 
 /**
  *
@@ -87,7 +91,7 @@ public class Assinador {
 
         // Create a DOM XMLSignatureFactory that will be used to
         // generate the enveloped signature.
-        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM", new org.apache.jcp.xml.dsig.internal.dom.XMLDSigRI());
+        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM", new org.jcp.xml.dsig.internal.dom.XMLDSigRI());
 
         // Create a Reference to the enveloped document (in this case,
         // you are signing the whole document, so a URI of "" signifies
