@@ -15,9 +15,14 @@ public class MdfeRodo {
 
     private String RNTRC;
     private String CIOT;
+    private MdfeInfANTT infANTT;
     private MdfeVeicTracao veicTracao;
     private ArrayList<MdfeVeicReboque> veicReboque;
-    private ArrayList<MdfeValePed> valePed;
+//    private ArrayList<MdfeValePed> valePed;
+    
+    private String codAgPorto; // nivel 1
+    //lacRodo - nivel 1 grupo
+    private ArrayList<String> nLacre; // nivel 2
 
     public String getRNTRC() {
         return RNTRC;
@@ -50,13 +55,37 @@ public class MdfeRodo {
     public void setVeicReboque(ArrayList<MdfeVeicReboque> veicReboque) {
         this.veicReboque = veicReboque;
     }
+//
+//    public ArrayList<MdfeValePed> getValePed() {
+//        return valePed;
+//    }
+//
+//    public void setValePed(ArrayList<MdfeValePed> valePed) {
+//        this.valePed = valePed;
+//    }
 
-    public ArrayList<MdfeValePed> getValePed() {
-        return valePed;
-    }
+	public MdfeInfANTT getInfANTT() {
+		return infANTT;
+	}
 
-    public void setValePed(ArrayList<MdfeValePed> valePed) {
-        this.valePed = valePed;
-    }
+	public void setInfANTT(MdfeInfANTT infANTT) {
+		this.infANTT = infANTT;
+	}
+
+	public String getCodAgPorto() {
+		return codAgPorto;
+	}
+
+	public void setCodAgPorto(String codAgPorto) {
+		this.codAgPorto = codAgPorto;
+	}
+
+	public ArrayList<String> getnLacre() {
+		return nLacre;
+	}
+
+	public void setnLacre(ArrayList<String> nLacre) {
+		this.nLacre = nLacre;
+	}
 
 }

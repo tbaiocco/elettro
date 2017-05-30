@@ -14,6 +14,9 @@ public class Mdfe {
     private Integer cUF;
     private Integer tpAmb;
     private Integer tpEmit;
+    //novo 3.0
+    private Integer tpTransp;
+    
     private Integer mod;
     private Integer nMDF;
     private Integer cMDF;
@@ -34,6 +37,10 @@ public class Mdfe {
     private String versaoModal;
     private MdfeRodo rodo;
     private MdfeAereo aereo;
+    
+    //novo 3.0
+    private MdfeSeg seg;
+    
     private Integer qCTe;
     private Integer qCT;
     private Integer qNFe;
@@ -54,7 +61,7 @@ public class Mdfe {
     private String xMotivo;
     private String verAplic;
     private Empresa empresa;
-
+    
     public Integer getIdMdfe() {
         return idMdfe;
     }
@@ -406,5 +413,21 @@ public class Mdfe {
     public void setAutXML(ArrayList<MdfeAutXML> autXML) {
         this.autXML = autXML;
     }
+
+	public Integer getTpTransp() {
+		return tpTransp;
+	}
+
+	public void setTpTransp(Integer tpTransp) {
+		this.tpTransp = tpTransp;
+	}
+
+	public MdfeSeg getSeg() {
+		return seg;
+	}
+
+	public void setSeg(MdfeSeg seg) {
+		this.seg = seg;
+	}
 
 }

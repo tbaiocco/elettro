@@ -15,14 +15,15 @@ public class MdfeVeicTracao {
 
     private Integer cInt;//Código interno do veículo
     private String placa;
+    private String RENAVAM;
     private Double tara;//informar a Tara em KG.
     private Double capKG;
     private Double capM3;
+    private MdfeProp prop;
     private ArrayList<MdfeCondutor> condutor;
     private Integer tpRod;
     private Integer tpCar;
     private String UF;
-    private MdfeProp prop;
 
     public Integer getCInt() {
         return cInt;
@@ -103,5 +104,13 @@ public class MdfeVeicTracao {
     public void setUF(String UF) {
         this.UF = UF;
     }
+
+	public String getRENAVAM() {
+		return RENAVAM;
+	}
+
+	public void setRENAVAM(String rENAVAM) {
+		RENAVAM = rENAVAM;
+	}
 
 }

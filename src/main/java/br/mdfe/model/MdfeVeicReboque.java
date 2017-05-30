@@ -13,6 +13,7 @@ public class MdfeVeicReboque {
 
     private Integer cInt;//Código interno do veículo
     private String placa;
+    private String RENAVAM;
     private Double tara;//informar a Tara em KG.
     private Double capKG;
     private Double capM3;
@@ -83,5 +84,13 @@ public class MdfeVeicReboque {
     public void setUF(String UF) {
         this.UF = UF;
     }
+
+	public String getRENAVAM() {
+		return RENAVAM;
+	}
+
+	public void setRENAVAM(String rENAVAM) {
+		RENAVAM = rENAVAM;
+	}
 
 }
