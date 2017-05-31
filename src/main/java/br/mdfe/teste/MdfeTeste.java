@@ -11,6 +11,7 @@ import br.mdfe.model.MdfeCondutor;
 import br.mdfe.model.MdfeEmit;
 import br.mdfe.model.MdfeInfANTT;
 import br.mdfe.model.MdfeInfCIOT;
+import br.mdfe.model.MdfeInfContratante;
 import br.mdfe.model.MdfeInfMunCarrega;
 import br.mdfe.model.MdfeInfMunDescarga;
 import br.mdfe.model.MdfeInfNFe;
@@ -133,7 +134,13 @@ public class MdfeTeste {
         lVped.add(vped);
         infANTT.getValePed().add(vped);
         
-        infANTT.setCNPJ("91665554000163");
+        infANTT.setInfContratantes(new ArrayList<MdfeInfContratante>());
+        MdfeInfContratante infContratante = new MdfeInfContratante();
+        infContratante.setCNPJ("91665554000163");
+        infANTT.getInfContratantes().add(infContratante);
+        infContratante = new MdfeInfContratante();
+        infContratante.setCPF("00492343900");
+        infANTT.getInfContratantes().add(infContratante);
         
         rodo.setInfANTT(infANTT);
 

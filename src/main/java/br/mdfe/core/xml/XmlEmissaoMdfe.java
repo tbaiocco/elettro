@@ -12,6 +12,7 @@ import br.mdfe.model.MdfeInfANTT;
 import br.mdfe.model.MdfeInfCIOT;
 import br.mdfe.model.MdfeInfCT;
 import br.mdfe.model.MdfeInfCTe;
+import br.mdfe.model.MdfeInfContratante;
 import br.mdfe.model.MdfeInfMunCarrega;
 import br.mdfe.model.MdfeInfMunDescarga;
 import br.mdfe.model.MdfeInfNF;
@@ -240,16 +241,18 @@ public class XmlEmissaoMdfe {
                     saida += "</valePed>";
                 }
             	
-            	if(Utils.doValida(infANTT.getCNPJ()) ||Utils.doValida(infANTT.getCPF())) {
-            		saida += "<infContratante>";
-            		if(Utils.doValida(infANTT.getCNPJ())) {
-            			saida += "<CNPJ>" + infANTT.getCNPJ() + "</CNPJ>";
-            		} else {
-            			saida += "<CPF>" + infANTT.getCPF() + "</CPF>";
+            	if(infANTT.getInfContratantes() != null) {
+            		for(MdfeInfContratante infContratante : infANTT.getInfContratantes()) {
+            			saida += "<infContratante>";
+                		if(Utils.doValida(infContratante.getCNPJ())) {
+                			saida += "<CNPJ>" + infContratante.getCNPJ() + "</CNPJ>";
+                		} else {
+                			saida += "<CPF>" + infContratante.getCPF() + "</CPF>";
+                		}
+                		saida += "</infContratante>";
             		}
-            		saida += "</infContratante>";
             	}
-            	
+           	
             	saida += "</infANTT>";
             }
             

@@ -11,10 +11,8 @@ public class MdfeInfANTT {
 	
 	private ArrayList<MdfeValePed> valePed;
 	
-	//infContratante - nivel 2 grupo
-	private String CPF; //nivel 3
-	private String CNPJ; //nivel 3
-	
+	private ArrayList<MdfeInfContratante> infContratantes;
+
 	public String getRNTRC() {
 		return RNTRC;
 	}
@@ -33,17 +31,12 @@ public class MdfeInfANTT {
 	public void setValePed(ArrayList<MdfeValePed> valePed) {
 		this.valePed = valePed;
 	}
-	public String getCPF() {
-		return CPF;
+	public ArrayList<MdfeInfContratante> getInfContratantes() {
+		return infContratantes;
 	}
-	public void setCPF(String cPF) {
-		CPF = cPF;
+	public void setInfContratantes(ArrayList<MdfeInfContratante> infContratantes) {
+		this.infContratantes = infContratantes;
 	}
-	public String getCNPJ() {
-		return CNPJ;
-	}
-	public void setCNPJ(String cNPJ) {
-		CNPJ = cNPJ;
-	}
+	
 	
 }
