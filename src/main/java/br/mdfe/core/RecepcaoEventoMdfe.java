@@ -34,7 +34,7 @@ public class RecepcaoEventoMdfe {
     private HashMap erros = new HashMap();
     private WebService webservice = null;
     
-    private final String versao = "3.00";
+    private String versao;
     //
     private final MdfeEvento evento;
 
@@ -42,6 +42,7 @@ public class RecepcaoEventoMdfe {
         this.cnpjEmissor = cnpjEmissor;
         this.tpAmbiente = tpAmbiente;
         this.evento = evento;
+        
     }
 
     public MdfeEvento executar() {
@@ -59,7 +60,17 @@ public class RecepcaoEventoMdfe {
         } else if (!CertDig.getInstance().setProprerties(empresa)) {
             erros.put("certificado digital", "Não foi possível setar propriedades do certificado digital.");
         } else {
-
+        	if(!Utils.doValida(versao)) {
+        		versao = Utils.getValueDef(webservice.getVersaoPadrao(), "1.00");
+        	}
+        	if (Utils.doValida(webservice.getVersaoPadrao())) {
+        		if(!webservice.getVersaoPadrao().equals(versao))
+        			versao = webservice.getVersaoPadrao();
+            }
+        	if (tpAmbiente == 2) {
+            	versao = "3.00";
+            }
+        	
             retorno = this.processaRetorno();
 
         }

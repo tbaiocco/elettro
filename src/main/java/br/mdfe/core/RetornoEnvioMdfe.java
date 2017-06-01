@@ -63,6 +63,8 @@ public class RetornoEnvioMdfe {
         } else if (!CertDig.getInstance().setProprerties(empresa)) {
             erros.put("certificado digital", "Não foi possível setar propriedades do certificado digital.");
         } else {
+        	if(mdfe.getVersao() == null)
+        		mdfe.setVersao(webservice.getVersaoPadrao());
             return processa100();
         }
         return null;
@@ -85,12 +87,12 @@ public class RetornoEnvioMdfe {
         MDFeRetRecepcaoStub.MdfeCabecMsg param = new MDFeRetRecepcaoStub.MdfeCabecMsg();
 
         param.setCUF("" + empresa.getcUf());
-        param.setVersaoDados("" + webservice.getVersaoPadrao());
+        param.setVersaoDados("" + mdfe.getVersao());
         cteCabecMsg1.setMdfeCabecMsg(param);
         OMElement ome = null;
         try {
             ome = AXIOMUtil.stringToOM(""
-                    + "<consReciMDFe xmlns=\"http://www.portalfiscal.inf.br/mdfe\" versao=\"" + webservice.getVersaoPadrao() + "\">"
+                    + "<consReciMDFe xmlns=\"http://www.portalfiscal.inf.br/mdfe\" versao=\"" + mdfe.getVersao() + "\">"
                     + "<tpAmb>" + this.tpAmbiente + "</tpAmb>"
                     + "<nRec>" + this.nRec + "</nRec>"
                     + "</consReciMDFe>");
