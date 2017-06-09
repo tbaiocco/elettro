@@ -598,17 +598,24 @@ public class XmlEmissaoMdfe {
             	if(seg.getRespSeg() != null && seg.getRespSeg() > 0){
             		saida += "<infResp>";
             		saida += "<respSeg>" + seg.getRespSeg() + "</respSeg>";
-            		if(Utils.doValida(seg.getCPF())) {
-            			saida += "<CPF>" + seg.getCPF() + "</CPF>";
-            		} else {
-            			saida += "<CNPJ>" + seg.getCNPJ() + "</CNPJ>";
-            		}
+//            		if(seg.getRespSeg() != null && seg.getRespSeg() > 1) {
+            			if(Utils.doValida(seg.getCPF())) {
+                			saida += "<CPF>" + seg.getCPF() + "</CPF>";
+                		} else {
+                			if(Utils.doValida(seg.getCNPJ())) {
+                				saida += "<CNPJ>" + seg.getCNPJ() + "</CNPJ>";
+                			}
+                		}
+//            		} 
+            		
             		saida += "</infResp>";
             	}
             	if(Utils.doValida(seg.getxSeg())){
             		saida += "<infSeg>";
             		saida += "<xSeg>" + seg.getxSeg() + "</xSeg>";
-            		saida += "<CNPJ>" + seg.getCnpjSeg() + "</CNPJ>";
+            		if(Utils.doValida(seg.getCnpjSeg())) {
+            			saida += "<CNPJ>" + seg.getCnpjSeg() + "</CNPJ>";
+            		}
             		saida += "</infSeg>";
             	}
             	

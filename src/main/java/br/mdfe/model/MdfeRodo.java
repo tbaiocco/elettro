@@ -18,7 +18,9 @@ public class MdfeRodo {
     private MdfeInfANTT infANTT;
     private MdfeVeicTracao veicTracao;
     private ArrayList<MdfeVeicReboque> veicReboque;
-//    private ArrayList<MdfeValePed> valePed;
+    
+    //mantido por questoes de compatibilidade
+    private ArrayList<MdfeValePed> valePed;
     
     private String codAgPorto; // nivel 1
     //lacRodo - nivel 1 grupo
@@ -86,6 +88,14 @@ public class MdfeRodo {
 
 	public void setnLacre(ArrayList<String> nLacre) {
 		this.nLacre = nLacre;
+	}
+
+	public ArrayList<MdfeValePed> getValePed() {
+		return valePed;
+	}
+
+	public void setValePed(ArrayList<MdfeValePed> valePed) {
+		this.valePed = valePed;
 	}
 
 }
