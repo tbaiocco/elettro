@@ -16,10 +16,11 @@ import br.mdfe.model.MdfeEvento;
 import br.mdfe.model.MdfeLote;
 import br.mdfe.model.MdfeRetornoEnvioLote;
 import br.mdfe.model.MdfeStatusServico;
-import br.servicos.MdfeServicos;
-import br.utils.Arquivo;
-import br.utils.Configuracoes;
-import br.utils.Formatador;
+import br.mdfe.servicos.MdfeServicos;
+import br.mdfe.utils.Arquivo;
+import br.mdfe.utils.Configuracoes;
+import br.mdfe.utils.Formatador;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;

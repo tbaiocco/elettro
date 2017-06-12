@@ -18,9 +18,10 @@ import br.mdfe.model.Empresa;
 import br.mdfe.model.Mdfe;
 import br.mdfe.model.MdfeLote;
 import br.mdfe.model.WebService;
-import br.utils.Arquivo;
-import br.utils.Configuracoes;
-import br.utils.Utils;
+import br.mdfe.utils.Arquivo;
+import br.mdfe.utils.Configuracoes;
+import br.mdfe.utils.Utils;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.rmi.RemoteException;

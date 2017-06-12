@@ -17,7 +17,8 @@ import br.mdfe.core.webservices.service.MDFeConsulta.MDFeConsultaStub.MdfeDadosM
 import br.mdfe.model.Empresa;
 import br.mdfe.model.MdfeConsulta;
 import br.mdfe.model.WebService;
-import br.utils.Arquivo;
+import br.mdfe.utils.Arquivo;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;
@@ -41,6 +42,7 @@ public class ConsultaMdfe {
     private Empresa empresa = null;
     private HashMap erros = new HashMap();
     private WebService webservice = null;
+    private String versao = "";
 
     public ConsultaMdfe(String chMdfe, int tpAmbiente, String cnpjEmissor) {
         this.cnpjEmissor = cnpjEmissor;
@@ -72,6 +74,7 @@ public class ConsultaMdfe {
         MdfeConsulta retorno = null;
         MDFeConsultaStub cteUrl = null;
         try {
+        	versao = webservice.getVersaoPadrao();
             String url = webservice.getUrlConsultaMdfe();
             System.out.println("conectando em... " + url);
             cteUrl = new MDFeConsultaStub(url);
@@ -89,7 +92,7 @@ public class ConsultaMdfe {
         OMElement ome = null;
         try {
             ome = AXIOMUtil.stringToOM(""
-                    + "<consSitMDFe xmlns=\"http://www.portalfiscal.inf.br/mdfe\" versao=\"1.00\">"
+                    + "<consSitMDFe xmlns=\"http://www.portalfiscal.inf.br/mdfe\" versao=\"" + versao + "\">"
                     + "<tpAmb>" + this.tpAmbiente + "</tpAmb>"
                     + "<xServ>CONSULTAR</xServ>"
                     + "<chMDFe>" + this.chMdfe + "</chMDFe>"

@@ -11,10 +11,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import br.mdfe.model.Empresa;
-import br.utils.Arquivo;
-import br.utils.Configuracoes;
-import br.utils.Formatador;
-import br.utils.Validador;
+import br.mdfe.utils.Arquivo;
+import br.mdfe.utils.Configuracoes;
+import br.mdfe.utils.Formatador;
+import br.mdfe.utils.Validador;
 
 /**
  *

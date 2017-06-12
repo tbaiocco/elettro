@@ -9,9 +9,10 @@ import br.mdfe.core.assinador.AssinadorA3;
 import br.mdfe.core.assinador.SocketFactoryDinamico;
 import br.mdfe.model.Empresa;
 import br.mdfe.model.InformacoesCertificado;
-import br.utils.Configuracoes;
-import br.utils.Utils;
-import br.utils.ZipUtils;
+import br.mdfe.utils.Configuracoes;
+import br.mdfe.utils.Utils;
+import br.mdfe.utils.ZipUtils;
+
 import java.io.*;
 import java.math.BigInteger;
 import java.security.KeyStore;

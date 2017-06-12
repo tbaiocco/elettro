@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.servicos;
+package br.mdfe.servicos;
 
 import br.mdfe.core.CertDig;
 import br.mdfe.core.ConsultaMdfe;

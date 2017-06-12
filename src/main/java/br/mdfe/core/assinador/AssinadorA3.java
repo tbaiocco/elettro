@@ -4,7 +4,6 @@
  */
 package br.mdfe.core.assinador;
 
-import br.utils.Arquivo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -43,9 +42,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import br.mdfe.utils.Arquivo;
+import br.mdfe.utils.Configuracoes;
+
 import java.util.Enumeration;
 import javax.xml.transform.OutputKeys;
-import br.utils.Configuracoes;
+
 import java.io.*;
 import org.w3c.dom.Node;
 

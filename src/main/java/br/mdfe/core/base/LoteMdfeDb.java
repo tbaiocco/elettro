@@ -6,13 +6,14 @@ package br.mdfe.core.base;
 
 import com.thoughtworks.xstream.XStream;
 import br.mdfe.model.MdfeLote;
+import br.mdfe.utils.Arquivo;
+import br.mdfe.utils.Configuracoes;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import br.utils.Arquivo;
-import br.utils.Configuracoes;
 
 /**
  *

@@ -26,10 +26,11 @@ import br.mdfe.model.MdfeRodo;
 import br.mdfe.model.MdfeSeg;
 import br.mdfe.model.MdfeValePed;
 import br.mdfe.model.MdfeVeicReboque;
-import br.utils.Arquivo;
-import br.utils.Configuracoes;
-import br.utils.Formatador;
-import br.utils.Utils;
+import br.mdfe.utils.Arquivo;
+import br.mdfe.utils.Configuracoes;
+import br.mdfe.utils.Formatador;
+import br.mdfe.utils.Utils;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Collection;

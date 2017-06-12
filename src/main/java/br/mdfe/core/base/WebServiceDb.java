@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import br.mdfe.model.WebService;
-import br.utils.Arquivo;
-import br.utils.Configuracoes;
+import br.mdfe.utils.Arquivo;
+import br.mdfe.utils.Configuracoes;
 
 /**
  *

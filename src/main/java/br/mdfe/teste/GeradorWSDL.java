@@ -3,7 +3,8 @@ package br.mdfe.teste;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.axis2.wsdl.WSDL2Java;
-import br.utils.Configuracoes;
+
+import br.mdfe.utils.Configuracoes;
 
 public class GeradorWSDL {
 

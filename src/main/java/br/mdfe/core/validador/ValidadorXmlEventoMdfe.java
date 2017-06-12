@@ -20,7 +20,8 @@ import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-import br.utils.Configuracoes;
+
+import br.mdfe.utils.Configuracoes;
 
 /**
  *

@@ -9,10 +9,11 @@ import br.mdfe.core.CertDig;
 import br.mdfe.model.Empresa;
 import br.mdfe.model.MdfeEvento;
 import br.mdfe.model.MdfeInfCorrecao;
-import br.utils.Arquivo;
-import br.utils.Configuracoes;
-import br.utils.Formatador;
-import br.utils.Utils;
+import br.mdfe.utils.Arquivo;
+import br.mdfe.utils.Configuracoes;
+import br.mdfe.utils.Formatador;
+import br.mdfe.utils.Utils;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,8 +47,8 @@ public class XmlEventoMdfe {
         File f = new File(nomeArquivoLote);
         if (!f.exists()) {
 
-            String nomeArquivoNota = br.utils.Configuracoes.getInstance().getTmpDir() + System.getProperty("file.separator") + "evt-" + evento.getChMDFe() + ".xml";
-            String nomeArquivoNotaAss = br.utils.Configuracoes.getInstance().getTmpDir() + System.getProperty("file.separator") + "evt-" + evento.getChMDFe() + "-ass.xml";
+            String nomeArquivoNota = br.mdfe.utils.Configuracoes.getInstance().getTmpDir() + System.getProperty("file.separator") + "evt-" + evento.getChMDFe() + ".xml";
+            String nomeArquivoNotaAss = br.mdfe.utils.Configuracoes.getInstance().getTmpDir() + System.getProperty("file.separator") + "evt-" + evento.getChMDFe() + "-ass.xml";
 
             Arquivo a = new Arquivo(nomeArquivoNota);
             a.abrirEscrita();

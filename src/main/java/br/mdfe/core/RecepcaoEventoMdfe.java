@@ -11,8 +11,9 @@ import br.mdfe.core.xml.XmlEventoMdfe;
 import br.mdfe.model.Empresa;
 import br.mdfe.model.MdfeEvento;
 import br.mdfe.model.WebService;
-import br.utils.Arquivo;
-import br.utils.Utils;
+import br.mdfe.utils.Arquivo;
+import br.mdfe.utils.Utils;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.rmi.RemoteException;
@@ -80,10 +81,10 @@ public class RecepcaoEventoMdfe {
     private MdfeEvento processaRetorno() {
         MdfeEvento retorno = new MdfeEvento();
 
-        String nomeArquivoNota = br.utils.Configuracoes.getInstance().getTmpDir()+ "evt-" + evento.getChMDFe() + ".xml";
-        String nomeArquivoNotaAss = br.utils.Configuracoes.getInstance().getTmpDir() +"evt-" + evento.getChMDFe() + "-ass.xml";
+        String nomeArquivoNota = br.mdfe.utils.Configuracoes.getInstance().getTmpDir()+ "evt-" + evento.getChMDFe() + ".xml";
+        String nomeArquivoNotaAss = br.mdfe.utils.Configuracoes.getInstance().getTmpDir() +"evt-" + evento.getChMDFe() + "-ass.xml";
 
-        br.utils.Arquivo a = new br.utils.Arquivo(nomeArquivoNota);
+        br.mdfe.utils.Arquivo a = new br.mdfe.utils.Arquivo(nomeArquivoNota);
         if (a.abrirEscrita()) {
 
             String xml = XmlEventoMdfe.getInstance().getXml(evento, empresa, versao);

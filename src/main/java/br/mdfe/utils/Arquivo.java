@@ -1,4 +1,4 @@
-package br.utils;
+package br.mdfe.utils;
 
 import java.io.*;
 
