@@ -15,6 +15,8 @@ import br.utils.Arquivo;
 import br.utils.Configuracoes;
 import br.utils.Formatador;
 import br.utils.Utils;
+
+import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -96,19 +98,30 @@ public class XmlEventoCte {
         criaId();
         
         System.out.println(timeZone.getDisplayName(true,0));
-System.out.println(timeZone.getID());
-System.out.println(timeZone.inDaylightTime(evento.getDhEvento()));
-SimpleDateFormat formatadorT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ");
-System.out.println(formatadorT.format(evento.getDhEvento()));
-        
+		System.out.println(timeZone.getID());
+		System.out.println(timeZone.inDaylightTime(evento.getDhEvento()));
+		SimpleDateFormat formatadorT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+		System.out.println(formatadorT.format(evento.getDhEvento()));
+			
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ") {
+		    public StringBuffer format(Date date, StringBuffer toAppendTo, java.text.FieldPosition pos) {
+		        StringBuffer toFix = super.format(date, toAppendTo, pos);
+		        return toFix.insert(toFix.length()-2, ':');
+		    };
+		};
+		System.out.println(dateFormat.format(evento.getDhEvento()));
+		
+		SimpleDateFormat formatSemZ = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
         String xml = "<eventoCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"2.00\">"
                 + "<infEvento Id=\"" + id + "\">"
                 + "<cOrgao>" + evento.getCOrgao() + "</cOrgao>"
                 + "<tpAmb>" + evento.getTpAmb() + "</tpAmb>"
                 + "<CNPJ>" + evento.getCNPJ() + "</CNPJ>"
                 + "<chCTe>" + evento.getChCTe() + "</chCTe>"
-                + "<dhEvento>" + formatador.format(evento.getDhEvento()) + "T"
-                + formatador2.format(evento.getDhEvento());
+//                + "<dhEvento>" + formatador.format(evento.getDhEvento()) + "T"
+//                + formatador2.format(evento.getDhEvento());
+                + "<dhEvento>" + formatSemZ.format(evento.getDhEvento());
 //        if(timeZone.inDaylightTime(evento.getDhEvento())){
 //                        xml += "-02:00";
 //                    }
