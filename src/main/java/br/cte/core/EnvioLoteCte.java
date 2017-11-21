@@ -52,6 +52,9 @@ public class EnvioLoteCte {
     public EnvioLoteCte(Cte cte) {
         this.cnpjEmissor = cte.getEmitente().getCNPJ();
         this.tpAmbiente = cte.getTpAmb();
+        if(cte.getVersao()==null){
+            cte.setVersao("3.00");
+        }
         this.cte = cte;
     }
 
@@ -96,15 +99,15 @@ public class EnvioLoteCte {
                 String dadosMsgXml;
                 if (cte.getCUF() == 41) {
                     dadosMsgXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                            + "<enviCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"" + webservice.getVersaoPadrao() + "\">"
-//                            + "<enviCTe versao=\"" + webservice.getVersaoPadrao() + "\">"
+                            + "<enviCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"" + cte.getVersao() + "\">"
+//                            + "<enviCTe versao=\"" + cte.getVersao() + "\">"
                             + "<idLote>" + retorno.getCodigoLote() + "</idLote>";
                 } else {
                     dadosMsgXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                            + "<enviCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"" + webservice.getVersaoPadrao() + "\">"
+                            + "<enviCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"" + cte.getVersao() + "\">"
                             + "<idLote>" + retorno.getCodigoLote() + "</idLote>";
                 }                
-                String xmlNota = XmlEmissaoCte.getInstance().getXml(cte, webservice.getVersaoPadrao());
+                String xmlNota = XmlEmissaoCte.getInstance().getXml(cte, cte.getVersao());
 
                 String nomeArquivo = Configuracoes.getInstance().getAppDir() + "cte" + System.getProperty("file.separator") + Utils.getInstance().getDigitos(cte.getEmitente().getCNPJ()) + System.getProperty("file.separator") + "cte-" + cte.getNCT() + ".xml";
                 String nomeArquivoAss = Configuracoes.getInstance().getAppDir() + "cte" + System.getProperty("file.separator") + Utils.getInstance().getDigitos(cte.getEmitente().getCNPJ()) + System.getProperty("file.separator") + "cte-" + cte.getNCT() + ".xml";
@@ -151,7 +154,7 @@ public class EnvioLoteCte {
 
                 XmlEnvioCte validador = new XmlEnvioCte();
                 //System.out.println("validando xml");
-                if (!validador.valida(nomeArquivoLoteTeste, 1, webservice.getVersaoPadrao())) {//valida cte-lote
+                if (!validador.valida(nomeArquivoLoteTeste, 1, cte.getVersao())) {//valida cte-lote
                     System.out.println("retorno de erro na validacao do xml");
                     erros = validador.getErros();
                     retorno = null;
@@ -192,7 +195,7 @@ public class EnvioLoteCte {
         CteCabecMsgE cabecMsg1 = new CteCabecMsgE();
         CteCabecMsg param = new CteCabecMsg();
         param.setCUF("" + empresa.getcUf());
-        param.setVersaoDados(webservice.getVersaoPadrao());
+        param.setVersaoDados(cte.getVersao());
         cabecMsg1.setCteCabecMsg(param);
         OMElement ome = null;
         try {
@@ -253,7 +256,7 @@ public class EnvioLoteCte {
         CteCabecMsgE cabecMsg1 = new CteCabecMsgE();
         CteCabecMsg param = new CteCabecMsg();
         param.setCUF("" + empresa.getcUf());
-        param.setVersaoDados(webservice.getVersaoPadrao());
+        param.setVersaoDados(cte.getVersao());
         cabecMsg1.setCteCabecMsg(param);
         OMElement ome = null;
         try {

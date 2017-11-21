@@ -6,7 +6,10 @@ package br.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Properties;
+
+import br.mdfe.utils.Utils;
 
 /**
  *
@@ -22,14 +25,32 @@ public class Configuracoes {
      */
     private Configuracoes() {
         props = new Properties();
+        Properties baseProps = new Properties();
         try {
-            //CTE_HOME=/home/teo/nuovo-e
-            //System.out.println("Reading... " + System.getProperty("user.dir") + "" + System.getProperty("file.separator") + "sistema.properties");
-            //System.getenv("CTE_HOME")
+        	
+	    	try {
+	    		java.net.URL url = new java.net.URL(getClass().getProtectionDomain().getCodeSource().getLocation(), "../elettro.properties");
+	    		if(Utils.doValida(url.getFile()) && new File(url.getFile()).exists()) {
+		    		System.out.println("Usando baseCFG: "+url.getFile());
+		    		InputStream is = url.openStream();
+		    		baseProps.load(is);
+		    	} else {
+		        	InputStream is = getClass().getClassLoader().getResourceAsStream("elettro.properties");
+		        	System.out.println("Usando arquivo elettro INTERNO do jar ");
+		        	baseProps.load(is);
+		    	}
+	    	} catch (Exception e) {
+	    		//faz nada...
+	    		System.out.println("não leu o props...:"+e.getMessage());
+	    		InputStream is = getClass().getClassLoader().getResourceAsStream("elettro.properties");
+	        	System.out.println("Usando arquivo elettro INTERNO do jar ");
+	        	baseProps.load(is);
+	    	}
+	    	
+//            System.out.println("Reading... " + System.getProperty("user.dir") + "" + System.getProperty("file.separator") + "sistema.properties");
 //            String x = System.getProperty("user.dir") + "" + System.getProperty("file.separator") + "sistema.properties";
-            System.out.println("Reading... " + System.getenv("CTE_HOME") + "" + System.getProperty("file.separator") + "sistema.properties");
-            String x = System.getenv("CTE_HOME") + "" + System.getProperty("file.separator") + "sistema.properties";
-            //String x = "sistema.properties";
+            String x = baseProps.getProperty("props.location");
+            System.out.println("Reading... " + x);
             props.load(new FileInputStream(x));
             System.out.println("Application Home..:" + props.getProperty("appDir"));
         } catch (Exception e) {

@@ -29,6 +29,8 @@ import br.cte.core.xml.XmlEventoCte;
 import br.cte.model.CteEvento;
 import br.cte.model.Empresa;
 import br.cte.model.WebServiceCte;
+import br.mdfe.utils.Utils;
+
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import javax.xml.stream.XMLStreamException;
@@ -49,6 +51,7 @@ public class RecepcaoEventoCte {
     private HashMap erros = new HashMap();
     private WebServiceCte webservice = null;
     //
+    private String versao;
     private final CteEvento evento;
 
     public RecepcaoEventoCte(int tpAmbiente, String cnpjEmissor, CteEvento evento) {
@@ -72,6 +75,16 @@ public class RecepcaoEventoCte {
         } else if (!CertDig.getInstance().setProprierts(empresa)) {
             erros.put("certificado digital", "Não foi possível setar propriedades do certificado digital.");
         } else {
+        	if(!Utils.doValida(versao)) {
+        		versao = Utils.getValueDef(webservice.getVersaoPadrao(), "1.00");
+        	}
+        	if (Utils.doValida(webservice.getVersaoPadrao())) {
+        		if(!webservice.getVersaoPadrao().equals(versao))
+        			versao = webservice.getVersaoPadrao();
+            }
+        	if (tpAmbiente == 2) {
+            	versao = "3.00";
+            }
 
             retorno = this.processaRetorno();
 
@@ -88,7 +101,7 @@ public class RecepcaoEventoCte {
         br.utils.Arquivo a = new br.utils.Arquivo(nomeArquivoNota);
         if (a.abrirEscrita()) {
 
-            String xml = XmlEventoCte.getInstance().getXml(evento, empresa);
+            String xml = XmlEventoCte.getInstance().getXml(evento, empresa, versao);
             System.out.println(xml);
             a.escreverLinha(xml);
             a.fecharArquivo();
@@ -96,7 +109,7 @@ public class RecepcaoEventoCte {
             ValidadorXmlEventoCte validador = new ValidadorXmlEventoCte();
             if (!CertDig.getInstance().Ass(nomeArquivoNota, nomeArquivoNotaAss, "4", empresa)) {
                 erros.put("AssinarXmlEvento", CertDig.getInstance().getErro());
-            } else if (!validador.valida(nomeArquivoNotaAss, 1, webservice.getVersaoPadrao())) {//valida cte-lote
+            } else if (!validador.valida(nomeArquivoNotaAss, 1, versao)) {//valida cte-lote
                 System.out.println("retorno de erro na validacao do xml eventos");
                 erros = validador.getErros();
                 retorno = null;
@@ -122,7 +135,7 @@ public class RecepcaoEventoCte {
                     CteRecepcaoEventoStub.CteCabecMsg param = new CteRecepcaoEventoStub.CteCabecMsg();
 
                     param.setCUF("" + empresa.getcUf());
-                    param.setVersaoDados(webservice.getVersaoPadrao());
+                    param.setVersaoDados(versao);
                     cteCabecMsg1.setCteCabecMsg(param);
 
                     OMElement ome = null;

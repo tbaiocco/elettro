@@ -13,7 +13,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import br.utils.Arquivo;
 import br.utils.Configuracoes;
-import br.utils.Formatador;
 import br.utils.Utils;
 
 import java.util.Date;
@@ -31,8 +30,12 @@ public class XmlEventoCte {
     private TimeZone timeZone = TimeZone.getDefault();
     private final SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
     private final SimpleDateFormat formatador2 = new SimpleDateFormat("HH:mm:ss");
-
+    
     public String geraXmlDistEvento(CteEvento evento, Empresa empresa) {
+    	return this.geraXmlDistEvento(evento, empresa, "3.00");
+    }
+
+    public String geraXmlDistEvento(CteEvento evento, Empresa empresa, String versao) {
         String nomeArquivoLote = Configuracoes.getInstance().getAppDir() + "cte" + System.getProperty("file.separator") + Utils.getInstance().getDigitos(evento.getCNPJ()) + System.getProperty("file.separator") + evento.getTpEvento() + "-" + "" + evento.getChCTe() + "-" + evento.getNSeqEvento() + "-procEventoCte.xml";
 
         File f = new File(nomeArquivoLote);
@@ -43,7 +46,7 @@ public class XmlEventoCte {
 
             Arquivo a = new Arquivo(nomeArquivoNota);
             a.abrirEscrita();
-            String xml = this.getXml(evento, empresa);
+            String xml = this.getXml(evento, empresa, versao);
             a.escreverLinha(xml);
             a.fecharArquivo();
 
@@ -51,11 +54,11 @@ public class XmlEventoCte {
                 return "ERro ao assina: " + CertDig.getInstance().getErro();
             } else {
                 String dados = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-                dados += "<procEventoCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"2.00\">";
+                dados += "<procEventoCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"" + versao + "\">";
                 Arquivo aAssinado = new Arquivo(nomeArquivoNotaAss);
                 if (aAssinado.abrirLeitura()) {
                     dados += aAssinado.ler();
-                    dados += "<retEventoCTe versao=\"2.00\">"
+                    dados += "<retEventoCTe versao=\"" + versao + "\">"
                             + "<infEvento>"
                             + "<tpAmb>" + evento.getTpAmb() + "</tpAmb>"
                             + "<verAplic>" + evento.getVerAplic() + "</verAplic>"
@@ -77,7 +80,7 @@ public class XmlEventoCte {
                             + "</retEventoCTe>"
                             + "</procEventoCTe>";
 
-                    xml += getXml(evento, empresa);
+                    xml += getXml(evento, empresa, versao);
                     Arquivo a1 = new Arquivo(nomeArquivoLote);
                     a1.abrirEscrita();
                     a1.escreverLinha(dados);
@@ -93,7 +96,7 @@ public class XmlEventoCte {
         }
     }
 
-    public String getXml(CteEvento evento, Empresa empresa) {
+    public String getXml(CteEvento evento, Empresa empresa, String versao) {
         this.evento = evento;
         criaId();
         
@@ -113,7 +116,7 @@ public class XmlEventoCte {
 		
 		SimpleDateFormat formatSemZ = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-        String xml = "<eventoCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"2.00\">"
+        String xml = "<eventoCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"" + versao + "\">"
                 + "<infEvento Id=\"" + id + "\">"
                 + "<cOrgao>" + evento.getCOrgao() + "</cOrgao>"
                 + "<tpAmb>" + evento.getTpAmb() + "</tpAmb>"
@@ -128,7 +131,7 @@ public class XmlEventoCte {
         xml += "</dhEvento>"
                 + "<tpEvento>" + evento.getTpEvento() + "</tpEvento>"
                 + "<nSeqEvento>" + evento.getNSeqEvento() + "</nSeqEvento>"
-                + "<detEvento versaoEvento=\"2.00\">";
+                + "<detEvento versaoEvento=\"" + versao + "\">";
         //Registro Multimodal
         if (evento.getTpEvento() == 110160) {
             xml += "<evRegMultimodal xmlns=\"http://www.portalfiscal.inf.br/cte\">"

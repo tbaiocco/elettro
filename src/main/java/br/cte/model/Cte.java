@@ -13,7 +13,17 @@ import java.util.Date;
  */
 public class Cte {
 
-    private Empresa empresa;
+	private String versao;
+	
+    public String getVersao() {
+		return versao;
+	}
+
+	public void setVersao(String versao) {
+		this.versao = versao;
+	}
+
+	private Empresa empresa;
     private String chaveAcesso;
     private Integer cUF;
     private Integer cCT;

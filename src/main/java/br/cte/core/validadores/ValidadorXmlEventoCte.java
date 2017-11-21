@@ -43,7 +43,7 @@ public class ValidadorXmlEventoCte implements ErrorHandler {
     public Boolean valida(String xml, int tipo, String versao) {
             valido = true;
             this.xmlInput = xml;
-            this.xsdInput = Configuracoes.getInstance().getAppDir() + "schemasCte"+System.getProperty("file.separator")+"eventoCTe_v2.00.xsd";
+            this.xsdInput = Configuracoes.getInstance().getAppDir() + "schemasCte"+System.getProperty("file.separator")+"eventoCTe_v"+versao+".xsd";
             try {
                 this.validate();
                 if (valido) {
