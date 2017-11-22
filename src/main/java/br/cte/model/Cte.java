@@ -55,6 +55,7 @@ public class Cte {
     private String UFFim;
     private Integer retira;
     private String xDetRetira;
+    private String indIEToma; // 1 - contribuinte, 2 - isento, 9 - nao contribuinte
     private CteTomador toma;
     private CteCompl compl;
     private CteEmitente emitente;
@@ -895,4 +896,12 @@ public class Cte {
     public void setInfModal(CteInfModal infModal) {
         this.infModal = infModal;
     }
+
+	public String getIndIEToma() {
+		return indIEToma;
+	}
+
+	public void setIndIEToma(String indIEToma) {
+		this.indIEToma = indIEToma;
+	}
 }

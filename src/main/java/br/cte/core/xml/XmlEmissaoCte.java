@@ -37,6 +37,8 @@ import br.cte.model.CteVeic;
 import br.cte.model.CteVeicNovos;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
+
 import br.utils.Arquivo;
 import br.utils.Configuracoes;
 import br.utils.Utils;
@@ -49,6 +51,13 @@ public class XmlEmissaoCte {
 
     private static XmlEmissaoCte instancia = new XmlEmissaoCte();
     private SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+    
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ") {
+	    public StringBuffer format(Date date, StringBuffer toAppendTo, java.text.FieldPosition pos) {
+	        StringBuffer toFix = super.format(date, toAppendTo, pos);
+	        return toFix.insert(toFix.length()-2, ':');
+	    };
+	};
 
     private XmlEmissaoCte() {
     }
@@ -117,12 +126,14 @@ public class XmlEmissaoCte {
         xml += "<cCT>" + Utils.getInstance().zeroFill("" + cte.getCCT(), 8) + "</cCT>";
         xml += "<CFOP>" + cte.getCFOP() + "</CFOP>";
         xml += "<natOp>" + cte.getNatOp() + "</natOp>";
-        xml += "<forPag>" + cte.getForPag() + "</forPag>";
+        
+        //xml += "<forPag>" + cte.getForPag() + "</forPag>"; removido versao 3.00
         xml += "<mod>" + cte.getMod() + "</mod>";
         xml += "<serie>" + cte.getSerie() + "</serie>";
         xml += "<nCT>" + cte.getNCT() + "</nCT>";
 
-        xml += "<dhEmi>" + Utils.getInstance().convertDataToStringSefaz(cte.getDhEmi()) + "T" + Utils.getInstance().convertHoraToString(cte.getDhEmi()) + ":00</dhEmi>";
+//        xml += "<dhEmi>" + Utils.getInstance().convertDataToStringSefaz(cte.getDhEmi()) + "T" + Utils.getInstance().convertHoraToString(cte.getDhEmi()) + ":00</dhEmi>";
+        xml += "<dhEmi>" + dateFormat.format(cte.getDhEmi()) + "</dhEmi>";
         xml += "<tpImp>" + cte.getTpImp() + "</tpImp>";
         xml += "<tpEmis>" + cte.getTpEmis() + "</tpEmis>";
         xml += "<cDV>" + cte.getCDV() + "</cDV>";
@@ -148,6 +159,7 @@ public class XmlEmissaoCte {
         if (cte.getXDetRetira() != null && cte.getXDetRetira().length() > 0) {
             xml += "<xDetRetira>" + cte.getXDetRetira() + "</xDetRetira>";
         }
+        xml += "<indIEToma>" + cte.getIndIEToma() + "</indIEToma>";
         //INICIO TOMADOR DO SERVICO
         if (cte.getToma() != null) {
             if (cte.getToma().getToma() == 4) {
@@ -188,9 +200,9 @@ public class XmlEmissaoCte {
                 xml += "</enderToma>";
                 xml += "</toma4>";
             } else {
-                xml += "<toma03>";
+                xml += "<toma3>";
                 xml += "<toma>" + cte.getToma().getToma() + "</toma>";
-                xml += "</toma03>";
+                xml += "</toma3>";
             }
             //FIM TOMADOR SERVICO
         }
@@ -978,31 +990,32 @@ public class XmlEmissaoCte {
             }
             //FIM DOCS ANTERIOR
 
-            //INICIO SEGURO
-            Collection<CteSeg> listSeg = cte.getInfCTeNorm().getSeg();
-            if (listSeg != null) {
-                for (CteSeg seg : listSeg) {
-                    xml += "<seg>";
-                    xml += "<respSeg>" + seg.getRespSeg() + "</respSeg>";
-                    if (seg.getXSeg() != null && seg.getXSeg().length() > 0) {
-                        xml += "<xSeg>" + seg.getXSeg() + "</xSeg>";
-                    }
-                    if (seg.getNApol() != null && seg.getNApol().length() > 0) {
-                        xml += "<nApol>" + seg.getNApol() + "</nApol>";
-                    }
-                    if (seg.getNAver() != null && seg.getNAver().length() > 0) {
-                        xml += "<nAver>" + seg.getNAver() + "</nAver>";
-                    }
-                    if (seg.getVCarga() != null && seg.getVCarga() > 0) {
-                        xml += "<vCarga>" + Utils.getInstance().getDecimalFormatter(12, 2).format(seg.getVCarga()) + "</vCarga>";
-                    }
-                    xml += "</seg>";
-                }
-            }
-            //FIM SEGURO
+//            NAO TEM MAIS GRUPO SEG NA 3.00
+//            //INICIO SEGURO
+//            Collection<CteSeg> listSeg = cte.getInfCTeNorm().getSeg();
+//            if (listSeg != null) {
+//                for (CteSeg seg : listSeg) {
+//                    xml += "<seg>";
+//                    xml += "<respSeg>" + seg.getRespSeg() + "</respSeg>";
+//                    if (seg.getXSeg() != null && seg.getXSeg().length() > 0) {
+//                        xml += "<xSeg>" + seg.getXSeg() + "</xSeg>";
+//                    }
+//                    if (seg.getNApol() != null && seg.getNApol().length() > 0) {
+//                        xml += "<nApol>" + seg.getNApol() + "</nApol>";
+//                    }
+//                    if (seg.getNAver() != null && seg.getNAver().length() > 0) {
+//                        xml += "<nAver>" + seg.getNAver() + "</nAver>";
+//                    }
+//                    if (seg.getVCarga() != null && seg.getVCarga() > 0) {
+//                        xml += "<vCarga>" + Utils.getInstance().getDecimalFormatter(12, 2).format(seg.getVCarga()) + "</vCarga>";
+//                    }
+//                    xml += "</seg>";
+//                }
+//            }
+//            //FIM SEGURO
 
             if (cte.getInfModal() != null) {
-                xml += "<infModal versaoModal=\"" + cte.getInfModal().getVersaoModal() + "\">";
+                xml += "<infModal versaoModal=\"" + versao + "\">";
 
                 //INICIO Informações do modal Rodoviário
                 CteRodo rodo = cte.getInfCTeNorm().getRodo();
@@ -1011,10 +1024,11 @@ public class XmlEmissaoCte {
                     if (rodo.getRNTRC() != null && !rodo.getRNTRC().equals("null")) {
                         xml += "<RNTRC>" + Utils.getInstance().zeroFill("" + rodo.getRNTRC(), 8) + "</RNTRC>";
                     }
-                    xml += "<dPrev>" + Utils.getInstance().convertDataToStringSefaz(rodo.getdPrev()) + "</dPrev>";
-                    if (rodo.getLota() != null) {
-                        xml += "<lota>" + rodo.getLota() + "</lota>";
-                    }
+                    //eliminados na 3.00
+//                    xml += "<dPrev>" + Utils.getInstance().convertDataToStringSefaz(rodo.getdPrev()) + "</dPrev>";
+//                    if (rodo.getLota() != null) {
+//                        xml += "<lota>" + rodo.getLota() + "</lota>";
+//                    }
                     Collection<CteOcc> listOcc = rodo.getOcc();
                     if (listOcc != null) {
                         for (CteOcc occ : listOcc) {
@@ -1038,70 +1052,70 @@ public class XmlEmissaoCte {
                             xml += "</occ>";
                         }
                     }
-                    Collection<CteValePed> listValePed = cte.getInfCTeNorm().getRodo().getValePed();
-                    if (listValePed != null) {
-                        for (CteValePed valePed : listValePed) {
-                            xml += "<valePed>";
-                            xml += "<CNPJForn>" + Utils.getInstance().getDigitos(valePed.getCNPJForn()) + "</CNPJForn>";
-                            xml += "<nCompra>" + valePed.getnCompra() + "</nCompra>";
-                            xml += "<CNPJPg>" + Utils.getInstance().getDigitos(valePed.getCNPJPg()) + "</CNPJPg>";
-                            xml += "<vValePed>" + Utils.getInstance().getDecimalFormatter(12, 2).format(valePed.getVValePed()) + "</vValePed>";
-                            xml += "</valePed>";
-                        }
-                    }
-                    Collection<CteVeic> listVeic = rodo.getVeic();
-                    if (listVeic != null) {
-                        for (CteVeic veic : listVeic) {
-                            xml += "<veic>";
-                            if (veic.getCInt() != null && veic.getCInt().length() > 0) {
-                                xml += "<cInt>" + veic.getCInt() + "</cInt>";
-                            }
-                            xml += "<RENAVAM>" + veic.getRENAVAM() + "</RENAVAM>";
-                            xml += "<placa>" + veic.getPlaca() + "</placa>";
-                            xml += "<tara>" + veic.getTara() + "</tara>";
-                            xml += "<capKG>" + veic.getCapKG() + "</capKG>";
-                            xml += "<capM3>" + veic.getCapM3() + "</capM3>";
-                            xml += "<tpProp>" + veic.getTpProp() + "</tpProp>";
-                            xml += "<tpVeic>" + veic.getTpVeic() + "</tpVeic>";
-                            xml += "<tpRod>" + Utils.getInstance().zeroFill("" + veic.getTpRod(), 2) + "</tpRod>";
-                            xml += "<tpCar>" + Utils.getInstance().zeroFill("" + veic.getTpCar(), 2) + "</tpCar>";
-                            xml += "<UF>" + veic.getUF() + "</UF>";
-                            if (veic.getProp() != null) {
-                                xml += "<prop>";
-                                if (veic.getProp().getCNPJ() != null && veic.getProp().getCNPJ().length() > 0) {
-                                    xml += "<CNPJ>" + Utils.getInstance().getDigitos(veic.getProp().getCNPJ()) + "</CNPJ>";
-                                }
-                                if (veic.getProp().getCPF() != null && veic.getProp().getCPF().length() > 0) {
-                                    xml += "<CPF>" + Utils.getInstance().getDigitos(veic.getProp().getCPF()) + "</CPF>";
-                                }
-                                xml += "<RNTRC>" + Utils.getInstance().zeroFill(veic.getProp().getRNTRC(), 8) + "</RNTRC>";
-                                xml += "<xNome>" + veic.getProp().getXNome() + "</xNome>";
-                                xml += "<IE>" + veic.getProp().getIE() + "</IE>";
-                                xml += "<UF>" + veic.getProp().getUF() + "</UF>";
-                                xml += "<tpProp>" + veic.getProp().getTpProp() + "</tpProp>";
-                                xml += "</prop>";
-                            }
-                            xml += "</veic>";
-                        }
-                    }
-
-                    Collection<CteLacRodo> listLacRodo = rodo.getLacRodo();
-                    if (listLacRodo != null) {
-                        for (CteLacRodo lacRodo : listLacRodo) {
-                            xml += "<lacRodo>";
-                            xml += "<nLacre>" + lacRodo.getNLacre() + "</nLacre>";
-                            xml += "</lacRodo>";
-                        }
-                    }
-                    Collection<CteMoto> listMoto = rodo.getMoto();
-                    if (listMoto != null) {
-                        for (CteMoto moto : listMoto) {
-                            xml += "<moto>";
-                            xml += "<xNome>" + moto.getxNome() + "</xNome>";
-                            xml += "<CPF>" + moto.getCPF() + "</CPF>";
-                            xml += "</moto>";
-                        }
-                    }
+                  //eliminados na 3.00
+//                    Collection<CteValePed> listValePed = cte.getInfCTeNorm().getRodo().getValePed();
+//                    if (listValePed != null) {
+//                        for (CteValePed valePed : listValePed) {
+//                            xml += "<valePed>";
+//                            xml += "<CNPJForn>" + Utils.getInstance().getDigitos(valePed.getCNPJForn()) + "</CNPJForn>";
+//                            xml += "<nCompra>" + valePed.getnCompra() + "</nCompra>";
+//                            xml += "<CNPJPg>" + Utils.getInstance().getDigitos(valePed.getCNPJPg()) + "</CNPJPg>";
+//                            xml += "<vValePed>" + Utils.getInstance().getDecimalFormatter(12, 2).format(valePed.getVValePed()) + "</vValePed>";
+//                            xml += "</valePed>";
+//                        }
+//                    }
+//                    Collection<CteVeic> listVeic = rodo.getVeic();
+//                    if (listVeic != null) {
+//                        for (CteVeic veic : listVeic) {
+//                            xml += "<veic>";
+//                            if (veic.getCInt() != null && veic.getCInt().length() > 0) {
+//                                xml += "<cInt>" + veic.getCInt() + "</cInt>";
+//                            }
+//                            xml += "<RENAVAM>" + veic.getRENAVAM() + "</RENAVAM>";
+//                            xml += "<placa>" + veic.getPlaca() + "</placa>";
+//                            xml += "<tara>" + veic.getTara() + "</tara>";
+//                            xml += "<capKG>" + veic.getCapKG() + "</capKG>";
+//                            xml += "<capM3>" + veic.getCapM3() + "</capM3>";
+//                            xml += "<tpProp>" + veic.getTpProp() + "</tpProp>";
+//                            xml += "<tpVeic>" + veic.getTpVeic() + "</tpVeic>";
+//                            xml += "<tpRod>" + Utils.getInstance().zeroFill("" + veic.getTpRod(), 2) + "</tpRod>";
+//                            xml += "<tpCar>" + Utils.getInstance().zeroFill("" + veic.getTpCar(), 2) + "</tpCar>";
+//                            xml += "<UF>" + veic.getUF() + "</UF>";
+//                            if (veic.getProp() != null) {
+//                                xml += "<prop>";
+//                                if (veic.getProp().getCNPJ() != null && veic.getProp().getCNPJ().length() > 0) {
+//                                    xml += "<CNPJ>" + Utils.getInstance().getDigitos(veic.getProp().getCNPJ()) + "</CNPJ>";
+//                                }
+//                                if (veic.getProp().getCPF() != null && veic.getProp().getCPF().length() > 0) {
+//                                    xml += "<CPF>" + Utils.getInstance().getDigitos(veic.getProp().getCPF()) + "</CPF>";
+//                                }
+//                                xml += "<RNTRC>" + Utils.getInstance().zeroFill(veic.getProp().getRNTRC(), 8) + "</RNTRC>";
+//                                xml += "<xNome>" + veic.getProp().getXNome() + "</xNome>";
+//                                xml += "<IE>" + veic.getProp().getIE() + "</IE>";
+//                                xml += "<UF>" + veic.getProp().getUF() + "</UF>";
+//                                xml += "<tpProp>" + veic.getProp().getTpProp() + "</tpProp>";
+//                                xml += "</prop>";
+//                            }
+//                            xml += "</veic>";
+//                        }
+//                    }
+//                    Collection<CteLacRodo> listLacRodo = rodo.getLacRodo();
+//                    if (listLacRodo != null) {
+//                        for (CteLacRodo lacRodo : listLacRodo) {
+//                            xml += "<lacRodo>";
+//                            xml += "<nLacre>" + lacRodo.getNLacre() + "</nLacre>";
+//                            xml += "</lacRodo>";
+//                        }
+//                    }
+//                    Collection<CteMoto> listMoto = rodo.getMoto();
+//                    if (listMoto != null) {
+//                        for (CteMoto moto : listMoto) {
+//                            xml += "<moto>";
+//                            xml += "<xNome>" + moto.getxNome() + "</xNome>";
+//                            xml += "<CPF>" + moto.getCPF() + "</CPF>";
+//                            xml += "</moto>";
+//                        }
+//                    }
                     xml += "</rodo>";
                 }//FIM Informações do modal Rodoviário
 
