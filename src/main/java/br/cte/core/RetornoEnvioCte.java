@@ -47,6 +47,9 @@ public class RetornoEnvioCte {
     public RetornoEnvioCte(String nRec, Cte cte) {
         this.cnpjEmissor = cte.getEmitente().getCNPJ();
         this.tpAmbiente = cte.getTpAmb();
+        if(cte.getVersao()==null){
+            cte.setVersao("3.00");
+        }
         this.cte = cte;
         this.nRec = nRec;
     }
@@ -87,12 +90,14 @@ public class RetornoEnvioCte {
         CteCabecMsg param = new CteCabecMsg();
 
         param.setCUF("" + empresa.getcUf());
-        param.setVersaoDados("" + webservice.getVersaoPadrao());
+//        param.setVersaoDados("" + webservice.getVersaoPadrao());
+        param.setVersaoDados("" + cte.getVersao());
         cteCabecMsg1.setCteCabecMsg(param);
         OMElement ome = null;
         try {
             ome = AXIOMUtil.stringToOM(""
-                    + "<consReciCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"" + webservice.getVersaoPadrao() + "\">"
+//            		+ "<consReciCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"" + webservice.getVersaoPadrao() + "\">"
+                    + "<consReciCTe xmlns=\"http://www.portalfiscal.inf.br/cte\" versao=\"" + cte.getVersao() + "\">"
                     + "<tpAmb>" + this.tpAmbiente + "</tpAmb>"
                     + "<nRec>" + this.nRec + "</nRec>"
                     + "</consReciCTe>");
@@ -143,7 +148,7 @@ public class RetornoEnvioCte {
                         cte.setVerAPlic(prot.getInfProt().getVerAplic());
                         cte.setDhRecbto(Utils.getInstance().convertStringDateSefaztoData(prot.getInfProt().getDhRecbto()));
 
-                        XmlEmissaoCte.getInstance().geraXmlCteLiberada(cte, webservice.getVersaoPadrao());
+                        XmlEmissaoCte.getInstance().geraXmlCteLiberada(cte, cte.getVersao());
                     }
                     retorno.setCte(cte);
                 }

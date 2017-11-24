@@ -31,6 +31,13 @@ public class XmlEventoCte {
     private final SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
     private final SimpleDateFormat formatador2 = new SimpleDateFormat("HH:mm:ss");
     
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ") {
+	    public StringBuffer format(Date date, StringBuffer toAppendTo, java.text.FieldPosition pos) {
+	        StringBuffer toFix = super.format(date, toAppendTo, pos);
+	        return toFix.insert(toFix.length()-2, ':');
+	    };
+	};
+    
     public String geraXmlDistEvento(CteEvento evento, Empresa empresa) {
     	return this.geraXmlDistEvento(evento, empresa, "3.00");
     }
@@ -106,12 +113,6 @@ public class XmlEventoCte {
 		SimpleDateFormat formatadorT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 		System.out.println(formatadorT.format(evento.getDhEvento()));
 			
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ") {
-		    public StringBuffer format(Date date, StringBuffer toAppendTo, java.text.FieldPosition pos) {
-		        StringBuffer toFix = super.format(date, toAppendTo, pos);
-		        return toFix.insert(toFix.length()-2, ':');
-		    };
-		};
 		System.out.println(dateFormat.format(evento.getDhEvento()));
 		
 		SimpleDateFormat formatSemZ = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -124,7 +125,7 @@ public class XmlEventoCte {
                 + "<chCTe>" + evento.getChCTe() + "</chCTe>"
 //                + "<dhEvento>" + formatador.format(evento.getDhEvento()) + "T"
 //                + formatador2.format(evento.getDhEvento());
-                + "<dhEvento>" + formatSemZ.format(evento.getDhEvento());
+                + "<dhEvento>" + dateFormat.format(evento.getDhEvento());
 //        if(timeZone.inDaylightTime(evento.getDhEvento())){
 //                        xml += "-02:00";
 //                    }
