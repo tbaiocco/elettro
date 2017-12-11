@@ -968,7 +968,7 @@ public class XmlEmissaoCte {
                             xml += "<idDocAnt>";
                             if (idDocAnt.getChave() != null && idDocAnt.getChave().length() > 0) {
                                 xml += "<idDocAntEle>";
-                                xml += "<chave>" + idDocAnt.getChave() + "</chave>";
+                                xml += "<chCTe>" + idDocAnt.getChave() + "</chCTe>";
                                 xml += "</idDocAntEle>";
                             } else {
                                 xml += "<idDocAntPap>";
@@ -1330,7 +1330,7 @@ public class XmlEmissaoCte {
         if (cte.getInfCTeComp()
                 != null) {
             xml += "<infCteComp>";
-            xml += "<chave>" + cte.getInfCTeComp().getChave() + "</chave>";
+            xml += "<chCTe>" + cte.getInfCTeComp().getChave() + "</chCTe>";
             xml += "<vPresComp>";
             xml += "<vTPrest>" + Utils.getInstance().getDecimalFormatter(13, 2).format(cte.getInfCTeComp().getVTPrest()) + "</vTPrest>";
 
