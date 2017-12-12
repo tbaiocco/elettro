@@ -8,10 +8,8 @@ package br.mdfe.core.xml;
 import br.mdfe.core.CertDig;
 import br.mdfe.model.Empresa;
 import br.mdfe.model.MdfeEvento;
-import br.mdfe.model.MdfeInfCorrecao;
 import br.mdfe.utils.Arquivo;
 import br.mdfe.utils.Configuracoes;
-import br.mdfe.utils.Formatador;
 import br.mdfe.utils.Utils;
 
 import java.io.File;
