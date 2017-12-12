@@ -733,13 +733,15 @@ public class XmlEmissaoCte {
                     xml += "<vBCOutraUF>" + Utils.getInstance().getDecimalFormatter(13, 2).format(cte.getImp().getVBCOutraUF()) + "</vBCOutraUF>";
                     xml += "<pICMSOutraUF>" + Utils.getInstance().getDecimalFormatter(3, 2).format(cte.getImp().getPICMSOutraUF()) + "</pICMSOutraUF>";
                     xml += "<vICMSOutraUF>" + Utils.getInstance().getDecimalFormatter(13, 2).format(cte.getImp().getVICMSOutraUF()) + "</vICMSOutraUF>";
-                    if (cte.getImp().getVCred() > 0) {
-                        xml += "<vCred>" + Utils.getInstance().getDecimalFormatter(13, 2).format(cte.getImp().getVCred()) + "</vCred>";
-                    }
+//                    if (cte.getImp().getVCred() > 0) {
+//                        xml += "<vCred>" + Utils.getInstance().getDecimalFormatter(13, 2).format(cte.getImp().getVCred()) + "</vCred>";
+//                    }
                     xml += "</ICMSOutraUF>";
                 }
+                
                 if (cte.getImp() != null && cte.getImp().getIndSN() != null && cte.getImp().getIndSN() == 1) {
                     xml += "<ICMSSN>";
+                    xml += "<CST>90</CST>";
                     xml += "<indSN>" + cte.getImp().getIndSN() + "</indSN>";
                     xml += "</ICMSSN>";
                 }
@@ -751,6 +753,23 @@ public class XmlEmissaoCte {
             if (cte.getImp().getInfAdFisco() != null && cte.getImp().getInfAdFisco().length() > 0) {
                 xml += "<infAdFisco>" + cte.getImp().getInfAdFisco() + "</infAdFisco>";
             }
+            
+            /**
+             * Tomador NAO Contribuinte entre UFs
+             */
+            if (cte.getIndIEToma().equals("9")&& (!cte.getEmitente().getUF().equals(cte.getToma().getUF()))) {
+                xml += "<ICMSUFFim>";
+                xml += "<vBCUFFim>" + Utils.getInstance().getDecimalFormatter(13, 2).format(cte.getImp().getvBCUFFim()) + "</vBCUFFim>";
+                xml += "<pFCPUFFim>" + Utils.getInstance().getDecimalFormatter(3, 2).format(cte.getImp().getpFCPUFFim()) + "</pFCPUFFim>";
+                xml += "<pICMSUFFim>" + Utils.getInstance().getDecimalFormatter(3, 2).format(cte.getImp().getpICMSUFFim()) + "</pICMSUFFim>";
+                xml += "<pICMSInter>" + Utils.getInstance().getDecimalFormatter(3, 2).format(cte.getImp().getpICMSInter()) + "</pICMSInter>";
+                xml += "<pICMSInterPart>" + Utils.getInstance().getDecimalFormatter(3, 2).format(cte.getImp().getpICMSInterPart()) + "</pICMSInterPart>";
+                xml += "<vFCPUFFim>" + Utils.getInstance().getDecimalFormatter(13, 2).format(cte.getImp().getvFCPUFFim()) + "</vFCPUFFim>";
+                xml += "<vICMSUFFim>" + Utils.getInstance().getDecimalFormatter(13, 2).format(cte.getImp().getvICMSUFFim()) + "</vICMSUFFim>";
+                xml += "<vICMSUFIni>" + Utils.getInstance().getDecimalFormatter(13, 2).format(cte.getImp().getvICMSUFIni()) + "</vICMSUFIni>";
+                xml += "</ICMSUFFim>";
+            }
+            
         }
         xml += "</imp>";
         //FIM IMPOSTOS

@@ -27,6 +27,15 @@ public class CteImposto {
     private Double vBCOutraUF;
     private Double pICMSOutraUF;
     private Double vICMSOutraUF;
+    
+    private Double vBCUFFim;
+    private Double pFCPUFFim;
+    private Double pICMSUFFim;
+    private Double pICMSInter;
+    private Double pICMSInterPart;
+    private Double vFCPUFFim;
+    private Double vICMSUFFim;
+    private Double vICMSUFIni;
 
     public Double getvTotTrib() {
         return vTotTrib;
@@ -155,5 +164,165 @@ public class CteImposto {
     public void setVICMSOutraUF(Double vICMSOutraUF) {
         this.vICMSOutraUF = vICMSOutraUF;
     }
+
+	public Double getvBC() {
+		return vBC;
+	}
+
+	public void setvBC(Double vBC) {
+		this.vBC = vBC;
+	}
+
+	public Double getpICMS() {
+		return pICMS;
+	}
+
+	public void setpICMS(Double pICMS) {
+		this.pICMS = pICMS;
+	}
+
+	public Double getvICMS() {
+		return vICMS;
+	}
+
+	public void setvICMS(Double vICMS) {
+		this.vICMS = vICMS;
+	}
+
+	public Double getpRedBC() {
+		return pRedBC;
+	}
+
+	public void setpRedBC(Double pRedBC) {
+		this.pRedBC = pRedBC;
+	}
+
+	public Double getvCred() {
+		return vCred;
+	}
+
+	public void setvCred(Double vCred) {
+		this.vCred = vCred;
+	}
+
+	public Double getvBCSTRet() {
+		return vBCSTRet;
+	}
+
+	public void setvBCSTRet(Double vBCSTRet) {
+		this.vBCSTRet = vBCSTRet;
+	}
+
+	public Double getpICMSSTRet() {
+		return pICMSSTRet;
+	}
+
+	public void setpICMSSTRet(Double pICMSSTRet) {
+		this.pICMSSTRet = pICMSSTRet;
+	}
+
+	public Double getvICMSSTRet() {
+		return vICMSSTRet;
+	}
+
+	public void setvICMSSTRet(Double vICMSSTRet) {
+		this.vICMSSTRet = vICMSSTRet;
+	}
+
+	public Double getpRedBCOutraUF() {
+		return pRedBCOutraUF;
+	}
+
+	public void setpRedBCOutraUF(Double pRedBCOutraUF) {
+		this.pRedBCOutraUF = pRedBCOutraUF;
+	}
+
+	public Double getvBCOutraUF() {
+		return vBCOutraUF;
+	}
+
+	public void setvBCOutraUF(Double vBCOutraUF) {
+		this.vBCOutraUF = vBCOutraUF;
+	}
+
+	public Double getpICMSOutraUF() {
+		return pICMSOutraUF;
+	}
+
+	public void setpICMSOutraUF(Double pICMSOutraUF) {
+		this.pICMSOutraUF = pICMSOutraUF;
+	}
+
+	public Double getvICMSOutraUF() {
+		return vICMSOutraUF;
+	}
+
+	public void setvICMSOutraUF(Double vICMSOutraUF) {
+		this.vICMSOutraUF = vICMSOutraUF;
+	}
+
+	public Double getvBCUFFim() {
+		return vBCUFFim;
+	}
+
+	public void setvBCUFFim(Double vBCUFFim) {
+		this.vBCUFFim = vBCUFFim;
+	}
+
+	public Double getpFCPUFFim() {
+		return pFCPUFFim;
+	}
+
+	public void setpFCPUFFim(Double pFCPUFFim) {
+		this.pFCPUFFim = pFCPUFFim;
+	}
+
+	public Double getpICMSUFFim() {
+		return pICMSUFFim;
+	}
+
+	public void setpICMSUFFim(Double pICMSUFFim) {
+		this.pICMSUFFim = pICMSUFFim;
+	}
+
+	public Double getpICMSInter() {
+		return pICMSInter;
+	}
+
+	public void setpICMSInter(Double pICMSInter) {
+		this.pICMSInter = pICMSInter;
+	}
+
+	public Double getpICMSInterPart() {
+		return pICMSInterPart;
+	}
+
+	public void setpICMSInterPart(Double pICMSInterPart) {
+		this.pICMSInterPart = pICMSInterPart;
+	}
+
+	public Double getvFCPUFFim() {
+		return vFCPUFFim;
+	}
+
+	public void setvFCPUFFim(Double vFCPUFFim) {
+		this.vFCPUFFim = vFCPUFFim;
+	}
+
+	public Double getvICMSUFFim() {
+		return vICMSUFFim;
+	}
+
+	public void setvICMSUFFim(Double vICMSUFFim) {
+		this.vICMSUFFim = vICMSUFFim;
+	}
+
+	public Double getvICMSUFIni() {
+		return vICMSUFIni;
+	}
+
+	public void setvICMSUFIni(Double vICMSUFIni) {
+		this.vICMSUFIni = vICMSUFIni;
+	}
 
 }
