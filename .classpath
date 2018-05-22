@@ -33,5 +33,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="extlib/xmldsig.jar"/>
+	<classpathentry kind="lib" path="extlib/java-nfe-4.00.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
