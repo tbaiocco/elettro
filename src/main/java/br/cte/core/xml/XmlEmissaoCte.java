@@ -1036,7 +1036,7 @@ public class XmlEmissaoCte {
             if (cte.getInfModal() != null) {
                 xml += "<infModal versaoModal=\"" + versao + "\">";
 
-                //INICIO Informações do modal Rodoviário
+                //INICIO Informaï¿½ï¿½es do modal Rodoviï¿½rio
                 CteRodo rodo = cte.getInfCTeNorm().getRodo();
                 if (rodo != null) {
                     xml += "<rodo xmlns=\"http://www.portalfiscal.inf.br/cte\">";
@@ -1136,7 +1136,7 @@ public class XmlEmissaoCte {
 //                        }
 //                    }
                     xml += "</rodo>";
-                }//FIM Informações do modal Rodoviário
+                }//FIM Informaï¿½ï¿½es do modal Rodoviï¿½rio
 
                 //INICIO MODAL AEREO
                 CteAereo aereo = cte.getInfCTeNorm().getAereo();
@@ -1451,8 +1451,17 @@ public class XmlEmissaoCte {
                 xml += "</autXML>";
             }
         }
-
+        
         xml += "</infCte>";
+        
+        //QRCode
+        if (cte.getQRCode() != null && cte.getQRCode().length() > 0 && !cte.getQRCode().equals("null")) {
+        	//https://dfe-portal.svrs.rs.gov.br/cte/qrCode
+            xml += "<infCTeSupl>";
+            xml += "<qrCodCTe>" + cte.getQRCode()+"?chCTe="+cte.getChaveAcesso()+"&amp;tpAmb="+cte.getTpAmb() + "</qrCodCTe>";
+            xml += "</infCTeSupl>";
+        }
+      
         xml += "</CTe>";
 //        System.out.println(xml);
         return xml;

@@ -64,7 +64,7 @@ public class EnvioLoteCte {
 
         empresa = eDb.getEmpresa(cnpjEmissor);
         if (empresa == null) {
-            erros.put("empresa", "Não foi possível carregar dados da empresa");
+            erros.put("empresa", "Nï¿½o foi possï¿½vel carregar dados da empresa");
         } else {
             WebServiceCteDb wDb = new WebServiceCteDb();
             webservice = wDb.getWebServer(empresa.getcUf(), tpAmbiente);
@@ -72,9 +72,9 @@ public class EnvioLoteCte {
             String testePR = "";
 
             if (webservice == null) {
-                erros.put("webservice", "Não foi possível carregar dados do webservice");
+                erros.put("webservice", "Nï¿½o foi possï¿½vel carregar dados do webservice");
             } else if (!CertDig.getInstance().setProprierts(empresa)) {
-                erros.put("certificado digital", "Não foi possível setar propriedades do certificado digital.");
+                erros.put("certificado digital", "Nï¿½o foi possï¿½vel setar propriedades do certificado digital.");
             } else {
                 //String diretorio = Configuracoes.getInstance().getAppDir() + "cte" + System.getProperty("file.separator") + Utils.getInstance().getDigitos(cte.getEmitente().getCNPJ()) + System.getProperty("file.separator");
 
@@ -94,6 +94,7 @@ public class EnvioLoteCte {
                     String ch = cte.getChaveAcesso();
                     cte.setCDV(Integer.parseInt(ch.substring(ch.length() - 1)));
                 }
+                
                 cte.setEmpresa(empresa);
 
                 String dadosMsgXml;

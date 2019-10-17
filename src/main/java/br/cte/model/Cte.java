@@ -87,6 +87,8 @@ public class Cte {
     private CteInfModal infModal;
     
     private CteInfAnu infAnu;
+    
+    private String QRCode;
 
     public CteInfAnu getInfAnu() {
         return infAnu;
@@ -118,14 +120,14 @@ public class Cte {
     }
 
     /**
-     * Desc: Código da UF do emitente do CT-e. Obs: Utilizar a Tabela do IBGE.
+     * Desc: Cï¿½digo da UF do emitente do CT-e. Obs: Utilizar a Tabela do IBGE.
      */
     public Integer getCUF() {
         return cUF;
     }
 
     /**
-     * Desc: Código da UF do emitente do CT-e. Obs: Utilizar a Tabela do IBGE.
+     * Desc: Cï¿½digo da UF do emitente do CT-e. Obs: Utilizar a Tabela do IBGE.
      * Tam.Max: 2
      *
      * @param cUF
@@ -135,7 +137,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Código numérico que compõe a Chave Obs: Número aleatório gerado
+     * Desc: Cï¿½digo numï¿½rico que compï¿½e a Chave Obs: Nï¿½mero aleatï¿½rio gerado
      * pelo emitente
      */
     public Integer getCCT() {
@@ -143,7 +145,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Código numérico que compõe a Chave Obs: Número aleatório gerado
+     * Desc: Cï¿½digo numï¿½rico que compï¿½e a Chave Obs: Nï¿½mero aleatï¿½rio gerado
      * pelo emitente Tam.Max: 9
      *
      * @param cCT
@@ -153,14 +155,14 @@ public class Cte {
     }
 
     /**
-     * Desc: Código Fiscal de Operações e Obs:
+     * Desc: Cï¿½digo Fiscal de Operaï¿½ï¿½es e Obs:
      */
     public Integer getCFOP() {
         return CFOP;
     }
 
     /**
-     * Desc: Código Fiscal de Operações e Obs: Tam.Max: 4
+     * Desc: Cï¿½digo Fiscal de Operaï¿½ï¿½es e Obs: Tam.Max: 4
      *
      * @param CFOP
      */
@@ -169,14 +171,14 @@ public class Cte {
     }
 
     /**
-     * Desc: Natureza da Operação Obs:
+     * Desc: Natureza da Operaï¿½ï¿½o Obs:
      */
     public String getNatOp() {
         return natOp;
     }
 
     /**
-     * Desc: Natureza da Operação Obs: Tam.Max: 60
+     * Desc: Natureza da Operaï¿½ï¿½o Obs: Tam.Max: 60
      *
      * @param natOp
      */
@@ -185,14 +187,14 @@ public class Cte {
     }
 
     /**
-     * Desc: Forma de pagamento do serviço Obs: 0 - Pago
+     * Desc: Forma de pagamento do serviï¿½o Obs: 0 - Pago
      */
     public Integer getForPag() {
         return forPag;
     }
 
     /**
-     * Desc: Forma de pagamento do serviço Obs: 0 - Pago Tam.Max: 1
+     * Desc: Forma de pagamento do serviï¿½o Obs: 0 - Pago Tam.Max: 1
      *
      * @param forPag
      */
@@ -201,16 +203,16 @@ public class Cte {
     }
 
     /**
-     * Desc: Modelo do documento fiscal Obs: Utilizar o código 57 para
-     * identificação do cte
+     * Desc: Modelo do documento fiscal Obs: Utilizar o cï¿½digo 57 para
+     * identificaï¿½ï¿½o do cte
      */
     public String getMod() {
         return mod;
     }
 
     /**
-     * Desc: Modelo do documento fiscal Obs: Utilizar o código 57 para
-     * identificação do cte Tam.Max: 2
+     * Desc: Modelo do documento fiscal Obs: Utilizar o cï¿½digo 57 para
+     * identificaï¿½ï¿½o do cte Tam.Max: 2
      *
      * @param mod
      */
@@ -219,14 +221,14 @@ public class Cte {
     }
 
     /**
-     * Desc: Série do CT-e Obs: Preencher com 0 no caso de série única
+     * Desc: Sï¿½rie do CT-e Obs: Preencher com 0 no caso de sï¿½rie ï¿½nica
      */
     public Integer getSerie() {
         return serie;
     }
 
     /**
-     * Desc: Série do CT-e Obs: Preencher com 0 no caso de série única Tam.Max:
+     * Desc: Sï¿½rie do CT-e Obs: Preencher com 0 no caso de sï¿½rie ï¿½nica Tam.Max:
      * 3
      *
      * @param serie
@@ -236,14 +238,14 @@ public class Cte {
     }
 
     /**
-     * Desc: Número do CT-e Obs:
+     * Desc: Nï¿½mero do CT-e Obs:
      */
     public Integer getNCT() {
         return nCT;
     }
 
     /**
-     * Desc: Número do CT-e Obs: Tam.Max: 9
+     * Desc: Nï¿½mero do CT-e Obs: Tam.Max: 9
      *
      * @param nCT
      */
@@ -252,14 +254,14 @@ public class Cte {
     }
 
     /**
-     * Desc: Data e hora de emissão do CT-e Obs: Formato AAAA-MM-DDTHH:MM:DD
+     * Desc: Data e hora de emissï¿½o do CT-e Obs: Formato AAAA-MM-DDTHH:MM:DD
      */
     public Date getDhEmi() {
         return dhEmi;
     }
 
     /**
-     * Desc: Data e hora de emissão do CT-e Obs: Formato AAAA-MM-DDTHH:MM:DD
+     * Desc: Data e hora de emissï¿½o do CT-e Obs: Formato AAAA-MM-DDTHH:MM:DD
      * Tam.Max: 19
      *
      * @param dhEmi
@@ -269,14 +271,14 @@ public class Cte {
     }
 
     /**
-     * Desc: Formato de impressão do DACTE Obs: 1-retrato 2-paisagem
+     * Desc: Formato de impressï¿½o do DACTE Obs: 1-retrato 2-paisagem
      */
     public Integer getTpImp() {
         return tpImp;
     }
 
     /**
-     * Desc: Formato de impressão do DACTE Obs: 1-retrato 2-paisagem Tam.Max: 1
+     * Desc: Formato de impressï¿½o do DACTE Obs: 1-retrato 2-paisagem Tam.Max: 1
      *
      * @param tpImp
      */
@@ -285,14 +287,14 @@ public class Cte {
     }
 
     /**
-     * Desc: Forma de emissão do CT-e Obs: 1-normal 2-contingencia
+     * Desc: Forma de emissï¿½o do CT-e Obs: 1-normal 2-contingencia
      */
     public Integer getTpEmis() {
         return tpEmis;
     }
 
     /**
-     * Desc: Forma de emissão do CT-e Obs: 1-normal 2-contingencia Tam.Max: 1
+     * Desc: Forma de emissï¿½o do CT-e Obs: 1-normal 2-contingencia Tam.Max: 1
      *
      * @param tpEmis
      */
@@ -301,7 +303,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Digito Verificador da chave de acesso cte Obs: Informar o dígito de
+     * Desc: Digito Verificador da chave de acesso cte Obs: Informar o dï¿½gito de
      * controle da chave
      */
     public Integer getCDV() {
@@ -309,7 +311,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Digito Verificador da chave de acesso cte Obs: Informar o dígito de
+     * Desc: Digito Verificador da chave de acesso cte Obs: Informar o dï¿½gito de
      * controle da chave Tam.Max: 1
      *
      * @param cDV
@@ -353,7 +355,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Identificador do processo de emissão Obs: 0 - emissão de CT-e com
+     * Desc: Identificador do processo de emissï¿½o Obs: 0 - emissï¿½o de CT-e com
      * aplicativo do
      */
     public Integer getProcEmi() {
@@ -361,7 +363,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Identificador do processo de emissão Obs: 0 - emissão de CT-e com
+     * Desc: Identificador do processo de emissï¿½o Obs: 0 - emissï¿½o de CT-e com
      * aplicativo do Tam.Max: 1
      *
      * @param procEmi
@@ -371,7 +373,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Versão do processo de emissão Obs: Iinformar a versão do aplicativo
+     * Desc: Versï¿½o do processo de emissï¿½o Obs: Iinformar a versï¿½o do aplicativo
      * emissor
      */
     public String getVerProc() {
@@ -379,7 +381,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Versão do processo de emissão Obs: Iinformar a versão do aplicativo
+     * Desc: Versï¿½o do processo de emissï¿½o Obs: Iinformar a versï¿½o do aplicativo
      * emissor Tam.Max: 20
      *
      * @param verProc
@@ -405,7 +407,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Código do Município onde o CT-e está Obs: Utilizar a tabela do
+     * Desc: Cï¿½digo do Municï¿½pio onde o CT-e estï¿½ Obs: Utilizar a tabela do
      * IBGE.
      */
     public Integer getCMunEnv() {
@@ -413,7 +415,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Código do Município onde o CT-e está Obs: Utilizar a tabela do
+     * Desc: Cï¿½digo do Municï¿½pio onde o CT-e estï¿½ Obs: Utilizar a tabela do
      * IBGE. Tam.Max: 7
      *
      * @param cMunEnv
@@ -423,16 +425,16 @@ public class Cte {
     }
 
     /**
-     * Desc: Nome do Município onde o CT-e está Obs: Informar 'EXTERIOR' para as
-     * operações com exterior
+     * Desc: Nome do Municï¿½pio onde o CT-e estï¿½ Obs: Informar 'EXTERIOR' para as
+     * operaï¿½ï¿½es com exterior
      */
     public String getXMunEnv() {
         return xMunEnv;
     }
 
     /**
-     * Desc: Nome do Município onde o CT-e está Obs: Informar 'EXTERIOR' para as
-     * operações com exterior Tam.Max: 60
+     * Desc: Nome do Municï¿½pio onde o CT-e estï¿½ Obs: Informar 'EXTERIOR' para as
+     * operaï¿½ï¿½es com exterior Tam.Max: 60
      *
      * @param xMunEnv
      */
@@ -441,16 +443,16 @@ public class Cte {
     }
 
     /**
-     * Desc: Sigla da UF onde o CT-e está sendo Obs: Informar 'EX' para
-     * operações com o
+     * Desc: Sigla da UF onde o CT-e estï¿½ sendo Obs: Informar 'EX' para
+     * operaï¿½ï¿½es com o
      */
     public String getUFEnv() {
         return UFEEnv;
     }
 
     /**
-     * Desc: Sigla da UF onde o CT-e está sendo Obs: Informar 'EX' para
-     * operações com o Tam.Max: 2
+     * Desc: Sigla da UF onde o CT-e estï¿½ sendo Obs: Informar 'EX' para
+     * operaï¿½ï¿½es com o Tam.Max: 2
      *
      * @param UFEnv
      */
@@ -459,7 +461,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Modal: Obs: 01-rodoviario 02-aéreo 03-aquaviario 04-ferroviario
+     * Desc: Modal: Obs: 01-rodoviario 02-aï¿½reo 03-aquaviario 04-ferroviario
      * 05-dutoviario
      */
     public Integer getModal() {
@@ -467,7 +469,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Modal: Obs: 01-rodoviario 02-aéreo 03-aquaviario 04-ferroviario
+     * Desc: Modal: Obs: 01-rodoviario 02-aï¿½reo 03-aquaviario 04-ferroviario
      * 05-dutoviario Tam.Max: 2
      *
      * @param modal
@@ -477,14 +479,14 @@ public class Cte {
     }
 
     /**
-     * Desc: Tipo do Serviço: Obs: 0 - Normal
+     * Desc: Tipo do Serviï¿½o: Obs: 0 - Normal
      */
     public Integer getTpServ() {
         return tpServ;
     }
 
     /**
-     * Desc: Tipo do Serviço: Obs: 0 - Normal Tam.Max: 1
+     * Desc: Tipo do Serviï¿½o: Obs: 0 - Normal Tam.Max: 1
      *
      * @param tpServ
      */
@@ -493,7 +495,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Código do Município de início da prestação Obs: Utilizar a tabela
+     * Desc: Cï¿½digo do Municï¿½pio de inï¿½cio da prestaï¿½ï¿½o Obs: Utilizar a tabela
      * do IBGE. Informar
      */
     public Integer getCMunIni() {
@@ -501,7 +503,7 @@ public class Cte {
     }
 
     /**
-     * Desc: Código do Município de início da prestação Obs: Utilizar a tabela
+     * Desc: Cï¿½digo do Municï¿½pio de inï¿½cio da prestaï¿½ï¿½o Obs: Utilizar a tabela
      * do IBGE. Informar Tam.Max: 7
      *
      * @param cMunIni
@@ -511,16 +513,16 @@ public class Cte {
     }
 
     /**
-     * Desc: Nome do Município do início da prestação Obs: Informar 'EXTERIOR'
-     * para operações com o exterior.
+     * Desc: Nome do Municï¿½pio do inï¿½cio da prestaï¿½ï¿½o Obs: Informar 'EXTERIOR'
+     * para operaï¿½ï¿½es com o exterior.
      */
     public String getXMunIni() {
         return xMunIni;
     }
 
     /**
-     * Desc: Nome do Município do início da prestação Obs: Informar 'EXTERIOR'
-     * para operações com o exterior. Tam.Max: 60
+     * Desc: Nome do Municï¿½pio do inï¿½cio da prestaï¿½ï¿½o Obs: Informar 'EXTERIOR'
+     * para operaï¿½ï¿½es com o exterior. Tam.Max: 60
      *
      * @param xMunIni
      */
@@ -529,7 +531,7 @@ public class Cte {
     }
 
     /**
-     * Desc: UF do início da prestação Obs: Informar 'EX' para operações com o
+     * Desc: UF do inï¿½cio da prestaï¿½ï¿½o Obs: Informar 'EX' para operaï¿½ï¿½es com o
      * exterior
      */
     public String getUFIni() {
@@ -537,7 +539,7 @@ public class Cte {
     }
 
     /**
-     * Desc: UF do início da prestação Obs: Informar 'EX' para operações com o
+     * Desc: UF do inï¿½cio da prestaï¿½ï¿½o Obs: Informar 'EX' para operaï¿½ï¿½es com o
      * exterior Tam.Max: 2
      *
      * @param UFIni
@@ -547,14 +549,14 @@ public class Cte {
     }
 
     /**
-     * Desc: Código do Município de término da Obs: Utilizar a tabela do IBGE.
+     * Desc: Cï¿½digo do Municï¿½pio de tï¿½rmino da Obs: Utilizar a tabela do IBGE.
      */
     public Integer getCMunFim() {
         return cMunFim;
     }
 
     /**
-     * Desc: Código do Município de término da Obs: Utilizar a tabela do IBGE.
+     * Desc: Cï¿½digo do Municï¿½pio de tï¿½rmino da Obs: Utilizar a tabela do IBGE.
      * Tam.Max: 7
      *
      * @param cMunFim
@@ -564,16 +566,16 @@ public class Cte {
     }
 
     /**
-     * Desc: Nome do Município do término da Obs: Informar 'EXTERIOR' para
-     * operações com exterior
+     * Desc: Nome do Municï¿½pio do tï¿½rmino da Obs: Informar 'EXTERIOR' para
+     * operaï¿½ï¿½es com exterior
      */
     public String getXMunFim() {
         return xMunFim;
     }
 
     /**
-     * Desc: Nome do Município do término da Obs: Informar 'EXTERIOR' para
-     * operações com exterior Tam.Max: 60
+     * Desc: Nome do Municï¿½pio do tï¿½rmino da Obs: Informar 'EXTERIOR' para
+     * operaï¿½ï¿½es com exterior Tam.Max: 60
      *
      * @param xMunFim
      */
@@ -582,7 +584,7 @@ public class Cte {
     }
 
     /**
-     * Desc: UF do término da prestação Obs: Informar 'EX' para operações com o
+     * Desc: UF do tï¿½rmino da prestaï¿½ï¿½o Obs: Informar 'EX' para operaï¿½ï¿½es com o
      * exterior
      */
     public String getUFFim() {
@@ -590,7 +592,7 @@ public class Cte {
     }
 
     /**
-     * Desc: UF do término da prestação Obs: Informar 'EX' para operações com o
+     * Desc: UF do tï¿½rmino da prestaï¿½ï¿½o Obs: Informar 'EX' para operaï¿½ï¿½es com o
      * exterior Tam.Max: 2
      *
      * @param UFFim
@@ -601,7 +603,7 @@ public class Cte {
 
     /**
      * Desc: Indicador se o Recebedor retira no Aeroporto, Filial, Porto ou
-     * Estação Obs: 0-sim 1-não
+     * Estaï¿½ï¿½o Obs: 0-sim 1-nï¿½o
      */
     public Integer getRetira() {
         return retira;
@@ -609,7 +611,7 @@ public class Cte {
 
     /**
      * Desc: Indicador se o Recebedor retira no Aeroporto, Filial, Porto ou
-     * Estação Obs: 0-sim 1-não Tam.Max: 1
+     * Estaï¿½ï¿½o Obs: 0-sim 1-nï¿½o Tam.Max: 1
      *
      * @param retira
      */
@@ -738,7 +740,7 @@ public class Cte {
     }
 
     /**
-     * Informações relativas aos Impostos Informações relativas ao ICMS
+     * Informaï¿½ï¿½es relativas aos Impostos Informaï¿½ï¿½es relativas ao ICMS
      *
      * @param imp
      */
@@ -751,7 +753,7 @@ public class Cte {
     }
 
     /**
-     * Grupo de informações do CT-e Normal e Substituto
+     * Grupo de informaï¿½ï¿½es do CT-e Normal e Substituto
      *
      * @param infCTeNorm
      */
@@ -764,7 +766,7 @@ public class Cte {
     }
 
     /**
-     * Informações do modal Rodoviário
+     * Informaï¿½ï¿½es do modal Rodoviï¿½rio
      *
      * @param rodo
      */
@@ -903,5 +905,13 @@ public class Cte {
 
 	public void setIndIEToma(String indIEToma) {
 		this.indIEToma = indIEToma;
+	}
+
+	public String getQRCode() {
+		return QRCode;
+	}
+
+	public void setQRCode(String qRCode) {
+		QRCode = qRCode;
 	}
 }
